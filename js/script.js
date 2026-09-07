@@ -220,4 +220,118 @@ document.addEventListener('DOMContentLoaded', () => {
              openWindow(windowId);
         });
     });
+
+    // --- Phase 5: Live Wallpapers & Theming ---
+    const wallpapers = [
+        {
+            id: 'sakura',
+            name: 'Sakura House',
+            src: 'assets/sakura-house.3840x2160.mp4',
+            icon: '🌸',
+            colors: {
+                '--bg-color': '#ffd1dc',
+                '--border-color': '#4a2333',
+                '--window-bg': '#fff0f5',
+                '--accent-pink': '#ffb6c1',
+                '--accent-green': '#98fb98'
+            }
+        },
+        {
+            id: 'emerald',
+            name: 'Emerald Bike',
+            src: 'assets/may-riding-a-bike-pokemon-emerald.3840x2160.mp4',
+            icon: '🚲',
+            colors: {
+                '--bg-color': '#a8d5ba',
+                '--border-color': '#1b402e',
+                '--window-bg': '#f0f8f1',
+                '--accent-pink': '#ffb6c1',
+                '--accent-green': '#7bc8a4'
+            }
+        },
+        {
+            id: 'city',
+            name: 'Pixel City',
+            src: 'assets/pixel-city-calm.3840x2160.mp4',
+            icon: '🏙️',
+            colors: {
+                '--bg-color': '#2c3e50',
+                '--border-color': '#0d1b2a',
+                '--window-bg': '#ecf0f1',
+                '--accent-pink': '#e74c3c',
+                '--accent-green': '#3498db'
+            }
+        },
+        {
+            id: 'koi',
+            name: 'Koi Pond',
+            src: 'assets/pixel-koi-pond.1920x1080.mp4',
+            icon: '🐟',
+            colors: {
+                '--bg-color': '#a0e8ef',
+                '--border-color': '#003a52',
+                '--window-bg': '#f2fcfe',
+                '--accent-pink': '#ff9a76',
+                '--accent-green': '#67e0e3'
+            }
+        },
+        {
+            id: 'persona',
+            name: 'P3 Sunset',
+            src: 'assets/persona-3-rooftop-sunset.3840x2160.mp4',
+            icon: '🌇',
+            colors: {
+                '--bg-color': '#ffb38a',
+                '--border-color': '#4a1500',
+                '--window-bg': '#fff5f0',
+                '--accent-pink': '#ff8866',
+                '--accent-green': '#ffd166'
+            }
+        }
+    ];
+
+    const desktopBg = document.getElementById('desktop-bg');
+    const wallpaperList = document.getElementById('wallpaper-list');
+
+    function setWallpaper(theme) {
+        // Set video source if changed
+        if (!desktopBg.src.endsWith(theme.src)) {
+            desktopBg.src = theme.src;
+        }
+
+        // Apply CSS variable colors to root
+        const root = document.documentElement;
+        for (const [key, value] of Object.entries(theme.colors)) {
+            root.style.setProperty(key, value);
+        }
+
+        // Update active class on menu
+        document.querySelectorAll('.wallpaper-btn').forEach(btn => {
+            btn.classList.toggle('active', btn.getAttribute('data-id') === theme.id);
+        });
+    }
+
+    // Initialize wallpaper menu
+    wallpapers.forEach((theme) => {
+        const btn = document.createElement('div');
+        btn.className = 'wallpaper-btn';
+        btn.setAttribute('data-id', theme.id);
+        btn.setAttribute('data-name', theme.name);
+        btn.textContent = theme.icon;
+
+        // PS5 style hover changes wallpaper immediately
+        btn.addEventListener('mouseenter', () => {
+            setWallpaper(theme);
+        });
+        
+        btn.addEventListener('click', () => {
+            setWallpaper(theme);
+        });
+
+        wallpaperList.appendChild(btn);
+    });
+
+    // Set default wallpaper on load
+    setWallpaper(wallpapers[0]);
+
 });
