@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Faiber - Gameplay Programmer</title>
+    <!-- Using Google Fonts for a retro monospaced look -->
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    
+    <!-- Phase 2: Boot / Splash Screen -->
+    <div id="boot-screen" class="boot-screen">
+        <div class="boot-content">
+            <h1 class="title-text">Faiber OS</h1>
+            <p class="subtitle-text">Gameplay Programmer & Developer</p>
+            <button id="start-btn" class="retro-btn press-start-btn">
+                <span class="btn-icon">▷</span> Press Start
+            </button>
+        </div>
+        <!-- Optional CRT scanline effect -->
+        <div class="crt-overlay"></div>
+    </div>
+
+    <!-- Phase 3: Desktop Environment -->
+    <div id="desktop" class="desktop hidden">
+        <!-- Desktop Grid / Icons -->
+        <div class="desktop-icons">
+            <div class="desktop-icon" data-window="projects">
+                <div class="icon-img">📁</div>
+                <span class="icon-label">Projects.exe</span>
+            </div>
+            <div class="desktop-icon" data-window="about">
+                <div class="icon-img">📝</div>
+                <span class="icon-label">AboutMe.txt</span>
+            </div>
+        </div>
+
+        <!-- Taskbar -->
+        <div class="taskbar">
+            <button class="retro-btn start-menu-btn">
+                <span class="btn-icon">❖</span> Start
+            </button>
+            <div class="taskbar-windows" id="taskbar-windows">
+                <!-- Open windows tabs will go here -->
+            </div>
+            <div class="system-tray">
+                <span id="sys-clock" class="sys-clock">12:00 PM</span>
+            </div>
+        </div>
+        
+        <!-- CRT effect for the whole OS -->
+        <div class="crt-overlay"></div>
+    </div>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
