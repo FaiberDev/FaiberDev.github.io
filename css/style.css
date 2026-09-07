@@ -195,3 +195,102 @@ p { font-size: 1.5rem; }
     font-size: 1.5rem;
     box-shadow: inset 2px 2px 0px rgba(0,0,0,0.1);
 }
+
+/* Phase 4: Window System */
+.window {
+    position: absolute;
+    width: 500px;
+    height: 400px;
+    background-color: var(--window-bg);
+    border: 3px solid var(--border-color);
+    box-shadow: 6px 6px 0px var(--border-color);
+    display: flex;
+    flex-direction: column;
+    border-radius: 8px;
+    overflow: hidden;
+    z-index: 1000;
+}
+
+.window.hidden {
+    display: none !important;
+}
+
+.window.maximized {
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: calc(100% - 60px) !important;
+    box-shadow: none;
+    border-radius: 0;
+}
+
+.window-header {
+    background-color: var(--accent-pink);
+    border-bottom: 3px solid var(--border-color);
+    padding: 5px 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: grab;
+    user-select: none;
+}
+
+.window-header:active {
+    cursor: grabbing;
+}
+
+.window.active .window-header {
+    background-color: var(--accent-green);
+}
+
+.window-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.window-controls {
+    display: flex;
+    gap: 5px;
+}
+
+.win-btn {
+    width: 16px;
+    height: 16px;
+    border: 2px solid var(--border-color);
+    background-color: var(--window-bg);
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.win-btn.close:hover { background-color: #FF5C5C; }
+.win-btn.min:hover { background-color: #FFBD44; }
+.win-btn.max:hover { background-color: #00CA4E; }
+
+.window-content {
+    flex: 1;
+    padding: 15px;
+    overflow-y: auto;
+    font-size: 1.2rem;
+}
+
+.window-content h2 { margin-bottom: 10px; }
+.window-content p { margin-bottom: 15px; font-size: 1.3rem; line-height: 1.4; }
+
+/* Taskbar Open Windows */
+.taskbar-tab {
+    font-family: var(--font-main);
+    font-size: 1.2rem;
+    padding: 5px 15px;
+    border: 2px solid var(--border-color);
+    background-color: var(--bg-color);
+    border-radius: 8px;
+    cursor: pointer;
+    box-shadow: 2px 2px 0px var(--border-color);
+    transition: all 0.1s;
+}
+
+.taskbar-tab.active {
+    background-color: var(--window-bg);
+    box-shadow: inset 2px 2px 0px rgba(0,0,0,0.1);
+    transform: translate(2px, 2px);
+}
