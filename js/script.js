@@ -16,21 +16,62 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     // --- Boot Sequence ---
+    const biosSequence = document.getElementById('bios-sequence');
+    const biosText = document.getElementById('bios-text');
+    const bootContent = document.getElementById('boot-content');
+    const crtFlash = document.getElementById('crt-flash');
+
+    const biosLines = [
+        "FAIBER BIOS v1.02",
+        "Copyright (C) 199X-202X, Piedrahita Megatrends",
+        "CPU: Gameplay Processor @ 3.4GHz",
+        "Memory Test: 64000K OK",
+        "Initializing window manager...",
+        "Loading shaders and assets...",
+        "System Boot OK.",
+        ""
+    ];
+
+    let biosLineIndex = 0;
+    
+    // Start BIOS sequence on load
+    function runBios() {
+        if (biosLineIndex < biosLines.length) {
+            biosText.textContent += biosLines[biosLineIndex] + "\n";
+            biosLineIndex++;
+            setTimeout(runBios, Math.random() * 200 + 100);
+        } else {
+            setTimeout(() => {
+                biosSequence.classList.add('hidden');
+                bootContent.classList.remove('hidden');
+            }, 500);
+        }
+    }
+    
+    // Start automatically
+    setTimeout(runBios, 500);
+
     startBtn.addEventListener('click', () => {
         startBtn.style.animation = 'none';
         startBtn.textContent = 'Booting...';
 
+        // CRT Flash effect
+        crtFlash.classList.remove('hidden');
+        crtFlash.classList.add('active');
+
         setTimeout(() => {
-            bootScreen.classList.add('fade-out');
+            bootScreen.classList.add('hidden');
+            desktop.classList.remove('hidden');
+            osState.booted = true;
+            
+            updateClock();
+            setInterval(updateClock, 1000);
+            
             setTimeout(() => {
-                bootScreen.classList.add('hidden');
-                desktop.classList.remove('hidden');
-                osState.booted = true;
-                
-                updateClock();
-                setInterval(updateClock, 1000);
-            }, 500);
-        }, 600);
+                crtFlash.classList.remove('active');
+                crtFlash.classList.add('hidden');
+            }, 800);
+        }, 400); // sync with flash animation
     });
 
     function updateClock() {

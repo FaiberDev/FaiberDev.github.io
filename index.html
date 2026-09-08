@@ -12,16 +12,27 @@
     
     <!-- Phase 2: Boot / Splash Screen -->
     <div id="boot-screen" class="boot-screen">
-        <div class="boot-content">
+        
+        <!-- New BIOS Boot Sequence -->
+        <div id="bios-sequence" class="bios-sequence">
+            <div id="bios-text"></div>
+            <div class="cursor">_</div>
+        </div>
+
+        <div id="boot-content" class="boot-content hidden">
             <h1 class="title-text">Faiber Piedrahita</h1>
             <p class="subtitle-text">Gameplay Programmer & Developer</p>
             <button id="start-btn" class="retro-btn press-start-btn">
                 <span class="btn-icon">▷</span> Press Start
             </button>
         </div>
-        <!-- Optional CRT scanline effect -->
+        
+        <!-- CRT scanline effect -->
         <div class="crt-overlay"></div>
     </div>
+    
+    <!-- CRT Flash effect on OS start -->
+    <div id="crt-flash" class="crt-flash hidden"></div>
 
     <!-- Phase 3: Desktop Environment -->
     <div id="desktop" class="desktop hidden">
@@ -39,11 +50,31 @@
         <!-- Desktop Grid / Icons -->
         <div class="desktop-icons">
             <div class="desktop-icon" data-window="projects">
-                <div class="icon-img">📁</div>
+                <div class="icon-img">
+                    <svg width="64" height="64" viewBox="0 0 16 16" shape-rendering="crispEdges">
+                        <!-- Folder back -->
+                        <rect x="1" y="3" width="6" height="2" fill="#E6A822"/>
+                        <rect x="1" y="5" width="14" height="8" fill="#F8C53A"/>
+                        <!-- Folder lip -->
+                        <rect x="2" y="5" width="12" height="1" fill="#FFD97D"/>
+                        <!-- Pixel border -->
+                        <path d="M1,3 h6 v2 h7 v8 h-14 v-10 z" fill="none" stroke="var(--border-color)" stroke-width="1"/>
+                    </svg>
+                </div>
                 <span class="icon-label">Projects.exe</span>
             </div>
             <div class="desktop-icon" data-window="about">
-                <div class="icon-img">📝</div>
+                <div class="icon-img">
+                    <svg width="64" height="64" viewBox="0 0 16 16" shape-rendering="crispEdges">
+                        <!-- Paper -->
+                        <rect x="3" y="2" width="10" height="12" fill="#FDFDFD"/>
+                        <path d="M3,2 h10 v12 h-10 z" fill="none" stroke="var(--border-color)" stroke-width="1"/>
+                        <!-- Lines -->
+                        <rect x="5" y="5" width="6" height="1" fill="#A0A0A0"/>
+                        <rect x="5" y="7" width="6" height="1" fill="#A0A0A0"/>
+                        <rect x="5" y="9" width="4" height="1" fill="#A0A0A0"/>
+                    </svg>
+                </div>
                 <span class="icon-label">AboutMe.txt</span>
             </div>
         </div>

@@ -373,3 +373,64 @@ p { font-size: 1.5rem; }
 .wallpaper-btn.active {
     background-color: var(--accent-green);
 }
+
+/* Phase 6: BIOS & CRT Boot Animation */
+.bios-sequence {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: #050505;
+    color: #00FF41; /* Hacker green */
+    font-family: 'Courier New', Courier, monospace;
+    padding: 20px;
+    font-size: 1.4rem;
+    z-index: 10000;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+.bios-sequence.hidden {
+    display: none !important;
+}
+
+.cursor {
+    display: inline-block;
+    width: 12px;
+    height: 1.4rem;
+    background-color: #00FF41;
+    animation: bios-blink 1s infinite step-end;
+}
+
+@keyframes bios-blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}
+
+#bios-text {
+    white-space: pre-wrap;
+    line-height: 1.5;
+}
+
+.crt-flash {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: white;
+    z-index: 10001;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.crt-flash.active {
+    animation: flash 0.8s cubic-bezier(0.2, 0, 0.4, 1) forwards;
+}
+
+@keyframes flash {
+    0% { opacity: 0; transform: scale(1, 0.001); background: white; }
+    10% { opacity: 1; transform: scale(1, 0.001); background: white; }
+    20% { opacity: 1; transform: scale(1, 1); background: white; }
+    100% { opacity: 0; transform: scale(1, 1); background: transparent; }
+}
