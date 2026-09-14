@@ -1,26 +1,26 @@
-import bg1 from '../assets/project-background/Pokemonbackground.jpg';
-import cover1 from '../assets/project-cover/PokemonCover.jpg';
-import logo1 from '../assets/project-logo/pokemonlogo.png';
+import bg1 from '../assets/project-background/pokemon.jpg';
+import cover1 from '../assets/project-cover/pokemon.jpg';
+import logo1 from '../assets/project-logo/pokemon.png';
 
-import bg2 from '../assets/project-background/ff7background.jpg';
-import cover2 from '../assets/project-cover/ff7cover.jpg';
-import logo2 from '../assets/project-logo/ff7logo.png';
+import bg2 from '../assets/project-background/ff7.jpg';
+import cover2 from '../assets/project-cover/ff7.jpg';
+import logo2 from '../assets/project-logo/ff7.png';
 
-import bg3 from '../assets/project-background/howardsbackground.jpeg';
+import bg3 from '../assets/project-background/howards.jpeg';
 import cover3 from '../assets/project-cover/howards.jpg';
-import logo3 from '../assets/project-logo/HowardsLogo.png';
+import logo3 from '../assets/project-logo/howards.png';
 
-import bg4 from '../assets/project-background/minecraftbackground.jpg';
+import bg4 from '../assets/project-background/minecraft.jpg';
 import cover4 from '../assets/project-cover/minecraft.jpg';
-import logo4 from '../assets/project-logo/minecraftlogo.png';
+import logo4 from '../assets/project-logo/minecraft.png';
 
-import bg5 from '../assets/project-background/persona5background.jpg';
-import cover5 from '../assets/project-cover/personacover.jpg';
-import logo5 from '../assets/project-logo/persona5logo.png';
+import bg5 from '../assets/project-background/persona5.jpg';
+import cover5 from '../assets/project-cover/persona5.jpg';
+import logo5 from '../assets/project-logo/persona5.png';
 
-import bg6 from '../assets/project-background/e33.jpeg';
-import cover6 from '../assets/project-cover/expedition33cover.jpg';
-import logo6 from '../assets/project-logo/expedition33logo.png';
+import bg6 from '../assets/project-background/expedition33.jpeg';
+import cover6 from '../assets/project-cover/expedition33.jpg';
+import logo6 from '../assets/project-logo/expedition33.png';
 
 export const ps5ProjectsData = [
   {
