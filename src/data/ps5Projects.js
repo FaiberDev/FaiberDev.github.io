@@ -1,50 +1,74 @@
+import bg1 from '../assets/project-background/Pokemonbackground.jpg';
+import cover1 from '../assets/project-cover/PokemonCover.jpg';
+import logo1 from '../assets/project-logo/pokemonlogo.png';
+
+import bg2 from '../assets/project-background/ff7background.jpg';
+import cover2 from '../assets/project-cover/ff7cover.jpg';
+import logo2 from '../assets/project-logo/ff7logo.png';
+
+import bg3 from '../assets/project-background/howardsbackground.jpeg';
+import cover3 from '../assets/project-cover/howards.jpg';
+import logo3 from '../assets/project-logo/HowardsLogo.png';
+
+import bg4 from '../assets/project-background/minecraftbackground.jpg';
+import cover4 from '../assets/project-cover/minecraft.jpg';
+import logo4 from '../assets/project-logo/minecraftlogo.png';
+
+import bg5 from '../assets/project-background/persona5background.jpg';
+import cover5 from '../assets/project-cover/personacover.jpg';
+import logo5 from '../assets/project-logo/persona5logo.png';
+
+import bg6 from '../assets/project-background/e33.jpeg';
+import cover6 from '../assets/project-cover/expedition33cover.jpg';
+import logo6 from '../assets/project-logo/expedition33logo.png';
+
 export const ps5ProjectsData = [
   {
-    id: 'ue5-demo',
-    title: 'Browser Unreal Demo',
-    description: 'An Unreal Engine 5 experience compiled to run directly in the browser. Features real-time 3D rendering, custom camera controls, and responsive input handling. No install required.',
-    coverUrl: 'https://placehold.co/200x200/1a1040/fff?text=UE5',
-    logoUrl: 'https://placehold.co/400x120/transparent/fff?text=Browser+Unreal+Demo',
-    backgroundUrl: 'https://images.unsplash.com/photo-1605901309584-818e25960b8f?q=80&w=2000&auto=format&fit=crop',
+    id: 'pokemon',
+    title: 'Pokemon Game',
+    description: 'A custom Pokemon-inspired game project featuring turn-based mechanics and pixel art aesthetics.',
+    coverUrl: cover1,
+    logoUrl: logo1,
+    backgroundUrl: bg1,
   },
   {
-    id: 'ue5-mechanics',
-    title: 'UE5 C++ Mechanics',
-    description: 'Custom character controller built from scratch in C++. Features a data-driven combat state machine, modular hitbox system, and gameplay ability components wired to animation blueprints.',
-    coverUrl: 'https://placehold.co/200x200/3d1800/fff?text=C%2B%2B',
-    logoUrl: 'https://placehold.co/400x120/transparent/fff?text=C%2B%2B+Mechanics',
-    backgroundUrl: 'https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=2000&auto=format&fit=crop',
+    id: 'ff7',
+    title: 'FF7 Project',
+    description: 'An action RPG project taking inspiration from the classic Final Fantasy 7 mechanics and atmospheric world.',
+    coverUrl: cover2,
+    logoUrl: logo2,
+    backgroundUrl: bg2,
   },
   {
-    id: 'otter-puzzle',
-    title: 'Otter — Top-Down Puzzle',
-    description: '2D top-down puzzle game starring an otter. Built a custom tilemap collision system, interactive tile mechanics (push blocks, water flow, switches), and a reactive audio logic engine synced to game events.',
-    coverUrl: 'https://placehold.co/200x200/004d20/fff?text=Otter',
-    logoUrl: 'https://placehold.co/400x120/transparent/fff?text=Otter+Puzzle',
-    backgroundUrl: 'https://images.unsplash.com/photo-1511512578047-dfb367046420?q=80&w=2000&auto=format&fit=crop',
+    id: 'howards',
+    title: 'Hogwarts Exploration',
+    description: 'An immersive 3D environment exploration game set in a magical castle with interactive spellcasting mechanics.',
+    coverUrl: cover3,
+    logoUrl: logo3,
+    backgroundUrl: bg3,
   },
   {
-    id: 'visual-novel',
-    title: 'Visual Novel Engine',
-    description: 'Full-featured visual novel framework in Unreal Engine 5. Implements UMG HUD with animated transitions, custom data tables for branching dialogue trees, and a pluggable scene management system.',
-    coverUrl: 'https://placehold.co/200x200/380055/fff?text=VN',
-    logoUrl: 'https://placehold.co/400x120/transparent/fff?text=VN+Engine',
-    backgroundUrl: 'https://images.unsplash.com/photo-1552820728-8b83bb6b773f?q=80&w=2000&auto=format&fit=crop',
+    id: 'minecraft',
+    title: 'Voxel Builder',
+    description: 'A procedural voxel-based crafting and exploration engine with custom terrain generation algorithms.',
+    coverUrl: cover4,
+    logoUrl: logo4,
+    backgroundUrl: bg4,
   },
   {
-    id: 'multiplayer-fps',
-    title: 'Neon Strike FPS',
-    description: 'Fast-paced multiplayer arena shooter. Implemented client-side prediction, lag compensation, and a custom matchmaking backend using Node.js and WebSockets.',
-    coverUrl: 'https://placehold.co/200x200/990033/fff?text=FPS',
-    logoUrl: 'https://placehold.co/400x120/transparent/fff?text=Neon+Strike',
-    backgroundUrl: 'https://images.unsplash.com/photo-1542751110-97427bbecf20?q=80&w=2000&auto=format&fit=crop',
+    id: 'persona5',
+    title: 'Persona 5 UI Engine',
+    description: 'A recreation of highly stylized, deeply dynamic user interfaces utilizing advanced motion graphics techniques.',
+    coverUrl: cover5,
+    logoUrl: logo5,
+    backgroundUrl: bg5,
   },
   {
-    id: 'mobile-platformer',
-    title: 'Skybound Jump',
-    description: 'A mobile-first endless platformer with procedural level generation. Optimized for 60fps on low-end devices with object pooling and texture atlasing.',
-    coverUrl: 'https://placehold.co/200x200/004080/fff?text=Jump',
-    logoUrl: 'https://placehold.co/400x120/transparent/fff?text=Skybound+Jump',
-    backgroundUrl: 'https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=2000&auto=format&fit=crop',
+    id: 'expedition33',
+    title: 'Expedition 33',
+    description: 'A surreal and beautifully rendered journey utilizing cutting-edge Unreal Engine 5 technologies.',
+    coverUrl: cover6,
+    logoUrl: logo6,
+    backgroundUrl: bg6,
   }
 ];
