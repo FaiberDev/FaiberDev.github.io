@@ -25,4 +25,17 @@ export const wallpapers = [
       '--accent-green': '#ff1a1a',
     },
   },
+  {
+    id: 'sakura',
+    name: 'Sakura House',
+    src: '/assets/sakura.mp4',
+    icon: '🌸',
+    colors: {
+      '--bg-color': '#ffd1dc',
+      '--border-color': '#4a2333',
+      '--window-bg': '#fff0f5',
+      '--accent-pink': '#ffb6c1',
+      '--accent-green': '#98fb98',
+    },
+  },
 ];
