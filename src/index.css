@@ -388,16 +388,14 @@ p { font-size: 1.5rem; }
 .wallpaper-menu-container {
     position: absolute;
     right: 20px;
-    top: 50%;
-    transform: translateY(-50%);
+    top: 20px;
     display: flex;
-    flex-direction: column;
     z-index: 5000;
 }
 
 .wallpaper-list {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     gap: 15px;
 }
 
@@ -420,7 +418,8 @@ p { font-size: 1.5rem; }
 .wallpaper-btn::before {
     content: attr(data-name);
     position: absolute;
-    right: 75px;
+    top: 70px;
+    left: 50%;
     background: var(--window-bg);
     color: var(--border-color);
     border: 2px solid var(--border-color);
@@ -428,7 +427,7 @@ p { font-size: 1.5rem; }
     border-radius: 8px;
     white-space: nowrap;
     opacity: 0;
-    transform: translateX(10px);
+    transform: translateX(-50%) translateY(-10px);
     transition: all 0.2s ease;
     pointer-events: none;
     font-weight: bold;
@@ -436,13 +435,13 @@ p { font-size: 1.5rem; }
 }
 
 .wallpaper-btn:hover, .wallpaper-btn.active {
-    transform: scale(1.1) translateX(-5px);
+    transform: scale(1.1) translateY(5px);
     background-color: var(--accent-pink);
 }
 
 .wallpaper-btn:hover::before, .wallpaper-btn.active::before {
     opacity: 1;
-    transform: translateX(0);
+    transform: translateX(-50%) translateY(0);
 }
 
 .wallpaper-btn.active {
