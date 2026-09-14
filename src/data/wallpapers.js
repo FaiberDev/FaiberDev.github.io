@@ -1,5 +1,18 @@
 export const wallpapers = [
   {
+    id: 'sakura',
+    name: 'Sakura House',
+    src: '/assets/sakura.mp4',
+    icon: '🌸',
+    colors: {
+      '--bg-color': '#ffd1dc',
+      '--border-color': '#4a2333',
+      '--window-bg': '#fff0f5',
+      '--accent-pink': '#ffb6c1',
+      '--accent-green': '#98fb98',
+    },
+  },
+  {
     id: 'berserker',
     name: 'Berserker',
     src: '/assets/berserker.mp4',
@@ -23,19 +36,6 @@ export const wallpapers = [
       '--window-bg': '#ffebec',
       '--accent-pink': '#ff7b89',
       '--accent-green': '#ff4d5a',
-    },
-  },
-  {
-    id: 'sakura',
-    name: 'Sakura House',
-    src: '/assets/sakura.mp4',
-    icon: '🌸',
-    colors: {
-      '--bg-color': '#ffd1dc',
-      '--border-color': '#4a2333',
-      '--window-bg': '#fff0f5',
-      '--accent-pink': '#ffb6c1',
-      '--accent-green': '#98fb98',
     },
   },
 ];
