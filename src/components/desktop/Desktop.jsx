@@ -83,10 +83,10 @@ function SettingsIcon() {
 const WINDOW_DEFS = {
   projects: {
     title: 'Projects Catalog',
-    size: { w: window.innerWidth * 0.8, h: window.innerHeight * 0.8 },
+    size: { w: window.innerWidth * 0.65, h: window.innerHeight * 0.75 },
     className: 'projects-window',
     content: <PS5Projects />,
-    startMaximized: false, // User requested 80vw/80vh centered, not fullscreen
+    startMaximized: false,
   },
   about: {
     title: 'About Me',
