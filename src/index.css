@@ -2,17 +2,18 @@
   /* Modern typography */
   --font-main: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   
-  /* Glassmorphism Variables */
-  --glass-bg: rgba(255, 255, 255, 0.12);
-  --glass-border: rgba(255, 255, 255, 0.25);
-  --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
-  --glass-blur: blur(12px);
+  /* Sakura Glassmorphism Variables */
+  --glass-bg: rgba(255, 228, 235, 0.4);
+  --glass-border: rgba(255, 255, 255, 0.6);
+  --glass-shadow: 0 8px 32px 0 rgba(138, 43, 66, 0.15);
+  --glass-blur: blur(16px);
   
-  --text-primary: #fff;
-  --text-secondary: rgba(255, 255, 255, 0.7);
+  /* Text Colors (High Contrast) */
+  --text-primary: #2d1b2e;
+  --text-secondary: #573a58;
   
-  --accent: rgba(255, 255, 255, 0.2);
-  --accent-hover: rgba(255, 255, 255, 0.3);
+  --accent: rgba(255, 255, 255, 0.4);
+  --accent-hover: rgba(255, 255, 255, 0.7);
 }
 
 * {
@@ -74,7 +75,7 @@ body {
   padding: 10px;
   border-radius: 12px;
   border: 1px solid transparent;
-  transition: all 0.2s ease;
+  transition: all 0.2s cubic-bezier(0.2, 1, 0.3, 1);
 }
 
 .desktop-icon:hover {
@@ -82,6 +83,8 @@ body {
   border: 1px solid var(--glass-border);
   backdrop-filter: var(--glass-blur);
   -webkit-backdrop-filter: var(--glass-blur);
+  transform: translateY(-4px);
+  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.3);
 }
 
 .icon-img {
@@ -89,13 +92,15 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  color: #fff;
 }
 
 .icon-label {
   font-size: 0.9rem;
   font-weight: 500;
   text-align: center;
-  text-shadow: 0 1px 4px rgba(0,0,0,0.6);
+  color: #fff; /* Icons on desktop always white for contrast against wallpaper */
+  text-shadow: 0 2px 6px rgba(0,0,0,0.8);
   word-break: break-word;
 }
 
@@ -125,21 +130,24 @@ body {
   padding: 6px 16px;
   background: transparent;
   border: 1px solid transparent;
-  color: var(--text-secondary);
+  color: var(--text-primary);
   border-radius: 8px;
   cursor: pointer;
-  transition: all 0.2s;
+  font-weight: 500;
+  transition: all 0.2s cubic-bezier(0.2, 1, 0.3, 1);
 }
 
 .taskbar-tab:hover {
   background: var(--accent);
-  color: var(--text-primary);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(255, 255, 255, 0.5);
 }
 
 .taskbar-tab.active {
   background: var(--accent-hover);
   border: 1px solid var(--glass-border);
   color: var(--text-primary);
+  box-shadow: 0 2px 8px rgba(255, 255, 255, 0.3);
 }
 
 /* Tools / System Tray */
@@ -149,12 +157,24 @@ body {
   gap: 12px;
 }
 
+.cat-mascot {
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.cat-mascot:hover {
+  transform: scale(1.2) translateY(-2px);
+}
+
 .sys-clock {
   font-size: 0.95rem;
-  font-weight: 500;
+  font-weight: 600;
   padding: 6px 12px;
   border-radius: 8px;
   background: var(--accent);
+  color: var(--text-primary);
+  border: 1px solid var(--glass-border);
 }
 
 .settings-btn {
@@ -168,12 +188,14 @@ body {
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: all 0.2s;
+  transition: all 0.2s cubic-bezier(0.2, 1, 0.3, 1);
 }
 
 .settings-btn:hover, .settings-btn.active {
   background: var(--accent-hover);
   border: 1px solid var(--glass-border);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(255, 255, 255, 0.5);
 }
 
 /* ── Hidden Wallpaper Menu (Popover) ─────────────────────────── */

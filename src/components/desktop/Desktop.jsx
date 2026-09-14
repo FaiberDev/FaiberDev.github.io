@@ -88,9 +88,9 @@ const WINDOW_DEFS = {
     title: 'About Me',
     size: { w: 600, h: 400 },
     content: (
-      <div style={{ padding: '24px', color: '#fff' }}>
+      <div style={{ padding: '24px', color: 'var(--text-primary)' }}>
         <h2 style={{ fontSize: '2rem', marginBottom: '16px' }}>Faiber Piedrahita</h2>
-        <p style={{ fontSize: '1.1rem', lineHeight: '1.6', color: '#ccc' }}>
+        <p style={{ fontSize: '1.1rem', lineHeight: '1.6', color: 'var(--text-secondary)' }}>
           Gameplay Programmer & Game Developer.
           <br /><br />
           I love building cozy, interactive, and highly polished experiences. 
@@ -203,6 +203,7 @@ export default function Desktop() {
           })}
         </div>
         <div className="system-tray">
+          <span className="cat-mascot" title="Meow!">🐈‍⬛</span>
           <button 
             className={`settings-btn ${showWallpaperMenu ? 'active' : ''}`}
             onClick={() => setShowWallpaperMenu(!showWallpaperMenu)}
