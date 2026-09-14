@@ -2,10 +2,10 @@ import { useRef, useState, useEffect } from 'react';
 
 export default function Window({
   id, title, children, defaultSize,
-  onClose, onFocus, zIndex = 1000, isMinimized = false, className = '',
+  onClose, onFocus, zIndex = 1000, isMinimized = false, className = '', startMaximized = false
 }) {
   const [pos, setPos] = useState({ x: 100, y: 50 });
-  const [isMaximized, setIsMaximized] = useState(false);
+  const [isMaximized, setIsMaximized] = useState(startMaximized);
   const dragState = useRef(null);
 
   useEffect(() => {

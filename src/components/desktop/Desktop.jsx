@@ -1,6 +1,6 @@
 import { useState, useReducer, useEffect, useRef } from 'react';
 import Window from '../window/Window';
-import ProjectsCarousel from '../projects/ProjectsCarousel';
+import PS5Projects from '../projects/PS5Projects';
 import { wallpapers } from '../../data/wallpapers';
 
 // ── Desktop icons config ────────────────────────────────────────
@@ -21,7 +21,7 @@ function windowsReducer(state, action) {
       }
       return {
         ...state,
-        [action.id]: { open: true, minimized: false, z: action.z },
+        [action.id]: { open: true, minimized: false, z: action.z, isMaximized: action.isMaximized || false },
       };
     }
     case 'CLOSE': {
@@ -31,6 +31,8 @@ function windowsReducer(state, action) {
     }
     case 'MINIMIZE':
       return { ...state, [action.id]: { ...state[action.id], minimized: true } };
+    case 'MAXIMIZE':
+      return { ...state, [action.id]: { ...state[action.id], isMaximized: action.isMaximized } };
     case 'FOCUS':
       return { ...state, [action.id]: { ...state[action.id], z: action.z } };
     default:
@@ -84,9 +86,10 @@ function DocIcon() {
 const WINDOW_DEFS = {
   projects: {
     title: 'projects.exe',
-    size: { w: 920, h: 510 },
+    size: { w: window.innerWidth * 0.9, h: window.innerHeight * 0.9 },
     className: 'projects-window',
-    content: <ProjectsCarousel />,
+    content: <PS5Projects />,
+    startMaximized: true,
   },
   about: {
     title: 'AboutMe.txt',
@@ -180,6 +183,7 @@ export default function Desktop() {
             id={id}
             title={def.title}
             defaultSize={def.size}
+            startMaximized={def.startMaximized}
             className={def.className ?? ''}
             zIndex={win.z}
             isMinimized={win.minimized}
