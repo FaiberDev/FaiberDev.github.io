@@ -1,0 +1,117 @@
+.notes-app {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(250, 250, 250, 0.95);
+  color: #1a1a1a;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+.notes-sidebar {
+  width: 30%;
+  min-width: 200px;
+  border-right: 1px solid #eaeaea;
+  padding: 12px 10px;
+  overflow-y: auto;
+  
+}
+
+.note-sidebar-item {
+  padding: 12px 16px;
+  border-radius: 10px;
+  cursor: pointer;
+  margin-bottom: 4px;
+  transition: background-color 0.2s ease;
+}
+
+.note-sidebar-item:hover:not(.active) {
+  background-color: var(--glass-bg);
+}
+
+.note-sidebar-item.active {
+  background-color: #fcebb6; /* Soft yellow */
+}
+
+.note-item-title {
+  font-weight: 600;
+  font-size: 1rem;
+  margin-bottom: 4px;
+  color: #000000;
+}
+
+.note-item-meta {
+  font-size: 0.85rem;
+  color: #8e8e93; /* Faint timestamp color */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: flex;
+  gap: 6px;
+}
+
+.note-item-date {
+  flex-shrink: 0;
+}
+
+.note-item-preview {
+  color: #6e6e73;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.notes-main {
+  width: 70%;
+  padding: 24px 48px;
+  overflow-y: auto;
+  
+}
+
+.notes-main-header {
+  text-align: center;
+  color: #8e8e93; /* Light grey timestamp */
+  font-size: 0.85rem;
+  margin-bottom: 24px;
+}
+
+.notes-main-title {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 24px;
+  color: #000000;
+}
+
+.notes-main-content {
+  font-size: 1.05rem;
+  line-height: 1.6;
+}
+
+.note-entry {
+  margin-bottom: 24px;
+}
+
+.note-entry-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 8px;
+}
+
+.note-entry-header strong {
+  font-size: 1.15rem;
+  color: #000000;
+}
+
+.note-entry-date {
+  color: #8e8e93;
+  font-size: 0.95rem;
+}
+
+.note-entry ul {
+  margin: 0;
+  padding-left: 20px;
+  color: #333333;
+}
+
+.note-entry li {
+  margin-bottom: 6px;
+}

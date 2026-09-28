@@ -1,11 +1,13 @@
 import { useState, useReducer, useEffect, useRef } from 'react';
 import Window from '../window/Window';
 import PS5Projects from '../projects/PS5Projects';
+import Notes from '../notes/Notes';
 import { wallpapers } from '../../data/wallpapers';
 
 const ICONS = [
   { id: 'projects', label: 'Projects' },
   { id: 'about',    label: 'About Me' },
+  { id: 'notes',    label: 'Notes' },
 ];
 
 function windowsReducer(state, action) {
@@ -64,10 +66,30 @@ function FolderIcon() {
 
 function UserIcon() {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-      <circle cx="12" cy="7" r="4"></circle>
-    </svg>
+    <img 
+      src="/assets/icons/faiberpfp.jpeg" 
+      alt="About Me" 
+      width="56" 
+      height="56" 
+      style={{ objectFit: 'cover', borderRadius: '12px', boxShadow: '0 2px 8px rgba(0,0,0,0.2)' }} 
+    />
+  );
+}
+
+function NotesIcon() {
+  return (
+    <div style={{
+      width: '56px',
+      height: '56px',
+      borderRadius: '12px',
+      boxShadow: '0 2px 8px rgba(0,0,0,0.2)',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      fontSize: '32px'
+    }}>
+      📝
+    </div>
   );
 }
 
@@ -83,23 +105,82 @@ function SettingsIcon() {
 const WINDOW_DEFS = {
   projects: {
     title: 'Projects Catalog',
-    size: { w: window.innerWidth * 0.65, h: window.innerHeight * 0.75 },
+    size: { w: window.innerWidth * 0.55, h: window.innerHeight * 0.70 },
     className: 'projects-window',
     content: <PS5Projects />,
     startMaximized: false,
   },
+  notes: {
+    title: 'Notes',
+    size: { w: 800, h: 550 },
+    className: 'notes-window mac-window',
+    content: <Notes />,
+    startMaximized: false,
+  },
   about: {
     title: 'About Me',
-    size: { w: 600, h: 400 },
+    size: { w: 600, h: 420 },
+    allowMaximize: false,
     content: (
-      <div style={{ padding: '24px', color: 'var(--text-primary)' }}>
-        <h2 style={{ fontSize: '2rem', marginBottom: '16px' }}>Faiber Piedrahita</h2>
-        <p style={{ fontSize: '1.1rem', lineHeight: '1.6', color: 'var(--text-secondary)' }}>
-          Gameplay Programmer & Game Developer.
-          <br /><br />
-          I love building cozy, interactive, and highly polished experiences. 
-          Welcome to my modern desktop portfolio!
-        </p>
+      <div style={{ 
+        padding: '32px', 
+        color: '#1A1A1A', 
+        backgroundColor: 'rgba(250, 250, 250, 0.95)',
+        minHeight: '100%',
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '32px'
+      }}>
+        {/* Top Section: Profile Pic & Info */}
+        <div style={{ display: 'flex', gap: '32px', alignItems: 'center' }}>
+          {/* Profile Picture Placeholder */}
+          <div style={{
+            width: '120px',
+            height: '120px',
+            borderRadius: '20px',
+            backgroundColor: '#d9d9d9',
+            boxShadow: '0 4px 14px rgba(0, 0, 0, 0.1)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            flexShrink: 0,
+            overflow: 'hidden'
+          }}>
+            <img 
+              src="/assets/icons/faiberpfp.jpeg" 
+              alt="Faiber Piedrahita Profile" 
+              style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
+            />
+          </div>
+
+          {/* Structured Info */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', fontSize: '1rem' }}>
+            <div style={{ display: 'flex' }}>
+              <span style={{ fontWeight: 'bold', width: '95px', flexShrink: 0 }}>NAME:</span> 
+              <span>Faiber Piedrahita</span>
+            </div>
+            <div style={{ display: 'flex' }}>
+              <span style={{ fontWeight: 'bold', width: '95px', flexShrink: 0 }}>POSITION:</span> 
+              <span>Gameplay Programmer & Game Developer</span>
+            </div>
+            <div style={{ display: 'flex' }}>
+              <span style={{ fontWeight: 'bold', width: '95px', flexShrink: 0 }}>MAIL:</span> 
+              <span>contact@faiber.dev</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Bio Section */}
+        <div style={{
+          backgroundColor: '#e6e6e6',
+          padding: '24px',
+          borderRadius: '16px',
+          fontSize: '1.1rem',
+          lineHeight: '1.6',
+          color: '#1A1A1A'
+        }}>
+          I love building cozy, interactive experiences. Welcome to my modern desktop portfolio
+        </div>
       </div>
     ),
   },
@@ -142,7 +223,7 @@ export default function Desktop() {
         {ICONS.map(({ id, label }) => (
           <div key={id} className="desktop-icon" onClick={() => openWindow(id)}>
             <div className="icon-img">
-              {id === 'projects' ? <FolderIcon /> : <UserIcon />}
+              {id === 'projects' ? <FolderIcon /> : id === 'notes' ? <NotesIcon /> : <UserIcon />}
             </div>
             <span className="icon-label">{label}</span>
           </div>
@@ -162,6 +243,7 @@ export default function Desktop() {
             className={def.className ?? ''}
             zIndex={win.z}
             isMinimized={win.minimized}
+            allowMaximize={def.allowMaximize !== false}
             onClose={(action) => handleWindowClose(id, action)}
             onFocus={() => focusWindow(id)}
           >
@@ -197,8 +279,16 @@ export default function Desktop() {
                 key={id}
                 className={`taskbar-tab${!win.minimized ? ' active' : ''}`}
                 onClick={() => {
-                  if (win.minimized) openWindow(id);
-                  else if (!win.minimized) dispatch({ type: 'MINIMIZE', id });
+                  if (win.minimized) {
+                    openWindow(id);
+                  } else {
+                    const maxZ = Math.max(...Object.values(windows).map(w => w.z || 0));
+                    if (win.z === maxZ) {
+                      dispatch({ type: 'MINIMIZE', id });
+                    } else {
+                      focusWindow(id);
+                    }
+                  }
                 }}
               >
                 {def?.title ?? id}

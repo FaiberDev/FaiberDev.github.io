@@ -2,7 +2,8 @@ import { useRef, useState, useEffect } from 'react';
 
 export default function Window({
   id, title, children, defaultSize,
-  onClose, onFocus, zIndex = 1000, isMinimized = false, className = '', startMaximized = false
+  onClose, onFocus, zIndex = 1000, isMinimized = false, className = '', startMaximized = false,
+  allowMaximize = true
 }) {
   const [pos, setPos] = useState({ x: 100, y: 50 });
   const [isMaximized, setIsMaximized] = useState(startMaximized);
@@ -60,15 +61,27 @@ export default function Window({
       style={style}
       onMouseDown={() => onFocus?.()}
     >
-      <div className="window-header" onMouseDown={onHeaderMouseDown}>
-        <span className="window-title">{title}</span>
-        <div className="window-controls">
-          <button className="win-btn min" onClick={(e) => { e.stopPropagation(); onClose?.('minimize'); }} />
-          <button className="win-btn max" onClick={(e) => { e.stopPropagation(); setIsMaximized(m => !m); }} />
+      <div className="window-header" onMouseDown={onHeaderMouseDown} style={{ justifyContent: className.includes('mac-window') ? 'flex-start' : 'space-between' }}>
+        {!className.includes('mac-window') && (
+          <span className="window-title">{title}</span>
+        )}
+        <div className="window-controls" style={{ display: 'flex', gap: '8px' }}>
           <button className="win-btn close" onClick={(e) => { e.stopPropagation(); onClose?.('close'); }} />
+          <button className="win-btn min" onClick={(e) => { e.stopPropagation(); onClose?.('minimize'); }} />
+          <button 
+            className={`win-btn max ${!allowMaximize ? 'disabled' : ''}`} 
+            onClick={(e) => { 
+              e.stopPropagation(); 
+              if (allowMaximize) setIsMaximized(m => !m); 
+            }}
+            style={{ opacity: allowMaximize ? undefined : 0.3, cursor: allowMaximize ? 'pointer' : 'default' }}
+          />
         </div>
+        {className.includes('mac-window') && (
+          <span className="window-title" style={{ marginLeft: '12px', fontWeight: 600, fontSize: '0.95rem' }}>{title}</span>
+        )}
       </div>
-      <div className="window-content">{children}</div>
+      <div className="window-content" style={{ flex: 1, overflowY: 'auto', position: 'relative' }}>{children}</div>
     </div>
   );
 }
