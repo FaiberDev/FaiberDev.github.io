@@ -25,11 +25,11 @@
 }
 
 .note-sidebar-item:hover:not(.active) {
-  background-color: var(--glass-bg);
+  background-color: rgba(244, 182, 194, 0.22); /* Soft pale pink */
 }
 
 .note-sidebar-item.active {
-  background-color: #fcebb6; /* Soft yellow */
+  background-color: rgba(240, 140, 165, 0.45); /* Richer, distinctive selected pink */
 }
 
 .note-item-title {
