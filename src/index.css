@@ -1,6 +1,115 @@
+/* ── SST Font Family ─────────────────────────────────────────── */
+@font-face {
+  font-family: 'SST';
+  src: url('./assets/fonts/SSTLight.TTF') format('truetype');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'SST';
+  src: url('./assets/fonts/SSTLightIt.TTF') format('truetype');
+  font-weight: 300;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'SST';
+  src: url('./assets/fonts/SSTRg.TTF') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'SST';
+  src: url('./assets/fonts/SSTRgIt.TTF') format('truetype');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'SST';
+  src: url('./assets/fonts/SSTMedium.TTF') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'SST';
+  src: url('./assets/fonts/SSTMediumIt.TTF') format('truetype');
+  font-weight: 500;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'SST';
+  src: url('./assets/fonts/SSTBold.TTF') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'SST';
+  src: url('./assets/fonts/SSTBoldIt.TTF') format('truetype');
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'SST';
+  src: url('./assets/fonts/SSTHeavy.TTF') format('truetype');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'SST';
+  src: url('./assets/fonts/SSTHeavyIt.TTF') format('truetype');
+  font-weight: 900;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'SST';
+  src: url('./assets/fonts/SSTRgCn.TTF') format('truetype');
+  font-weight: 400;
+  font-stretch: condensed;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'SST';
+  src: url('./assets/fonts/SSTMediumCn.TTF') format('truetype');
+  font-weight: 500;
+  font-stretch: condensed;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'SST';
+  src: url('./assets/fonts/SSTBoldCn.TTF') format('truetype');
+  font-weight: 700;
+  font-stretch: condensed;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
   /* Modern typography */
-  --font-main: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-main: 'SST', 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-title: 'SST', 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   
   /* Pink/Red Glassmorphism Variables */
   --glass-bg: rgba(240, 150, 170, 0.35); /* Slightly more saturated pink->red */

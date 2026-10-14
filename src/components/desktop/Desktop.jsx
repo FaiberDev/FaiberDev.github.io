@@ -113,7 +113,7 @@ const WINDOW_DEFS = {
   notes: {
     title: 'Notes',
     size: { w: 800, h: 550 },
-    className: 'notes-window mac-window',
+    className: 'notes-window',
     content: <Notes />,
     startMaximized: false,
   },

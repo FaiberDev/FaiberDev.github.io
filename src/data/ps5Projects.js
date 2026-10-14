@@ -22,7 +22,19 @@ import bg6 from '../assets/project-background/expedition33.jpeg';
 import cover6 from '../assets/project-cover/expedition33.jpg';
 import logo6 from '../assets/project-logo/expedition33.png';
 
+import unrealCover from '../assets/project-cover/unreal-engine.png';
+
 export const ps5ProjectsData = [
+  {
+    id: 'data-driven-rhythm-architecture',
+    title: 'Data-Driven Rhythm Architecture',
+    subtitle: 'Unreal Engine 5 · Gameplay System',
+    description: "A sample-accurate, framerate-independent rhythm system built in C++ utilizing Unreal Engine 5's Quartz subsystem and a custom JSON parser",
+    coverUrl: unrealCover,
+    logoUrl: null,
+    backgroundGradient: 'radial-gradient(circle at 70% 35%, #182848 0%, #101c33 45%, #080c17 100%)',
+    buttonText: 'More information',
+  },
   {
     id: 'pokemon',
     title: 'Pokemon Game',

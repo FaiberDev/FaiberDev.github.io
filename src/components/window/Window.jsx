@@ -61,12 +61,9 @@ export default function Window({
       style={style}
       onMouseDown={() => onFocus?.()}
     >
-      <div className="window-header" onMouseDown={onHeaderMouseDown} style={{ justifyContent: className.includes('mac-window') ? 'flex-start' : 'space-between' }}>
-        {!className.includes('mac-window') && (
-          <span className="window-title">{title}</span>
-        )}
+      <div className="window-header" onMouseDown={onHeaderMouseDown}>
+        <span className="window-title">{title}</span>
         <div className="window-controls" style={{ display: 'flex', gap: '8px' }}>
-          <button className="win-btn close" onClick={(e) => { e.stopPropagation(); onClose?.('close'); }} />
           <button className="win-btn min" onClick={(e) => { e.stopPropagation(); onClose?.('minimize'); }} />
           <button 
             className={`win-btn max ${!allowMaximize ? 'disabled' : ''}`} 
@@ -76,10 +73,8 @@ export default function Window({
             }}
             style={{ opacity: allowMaximize ? undefined : 0.3, cursor: allowMaximize ? 'pointer' : 'default' }}
           />
+          <button className="win-btn close" onClick={(e) => { e.stopPropagation(); onClose?.('close'); }} />
         </div>
-        {className.includes('mac-window') && (
-          <span className="window-title" style={{ marginLeft: '12px', fontWeight: 600, fontSize: '0.95rem' }}>{title}</span>
-        )}
       </div>
       <div className="window-content" style={{ flex: 1, overflowY: 'auto', position: 'relative' }}>{children}</div>
     </div>

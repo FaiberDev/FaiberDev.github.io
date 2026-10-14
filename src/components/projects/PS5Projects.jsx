@@ -8,30 +8,34 @@ export default function PS5Projects() {
 
   // Preload backgrounds and covers
   useEffect(() => {
-    let loadedCount = 0;
-    const totalImages = ps5ProjectsData.length * 2; // cover + background for each
+    const imagesToLoad = [];
+    ps5ProjectsData.forEach((project) => {
+      if (project.backgroundUrl) imagesToLoad.push(project.backgroundUrl);
+      if (project.coverUrl) imagesToLoad.push(project.coverUrl);
+    });
 
+    if (imagesToLoad.length === 0) {
+      setImagesLoaded(true);
+      return;
+    }
+
+    let loadedCount = 0;
     const handleImageLoad = () => {
       loadedCount++;
-      if (loadedCount >= totalImages) {
+      if (loadedCount >= imagesToLoad.length) {
         setImagesLoaded(true);
       }
     };
 
-    ps5ProjectsData.forEach((project) => {
-      const bgImg = new Image();
-      bgImg.src = project.backgroundUrl;
-      bgImg.onload = handleImageLoad;
-      bgImg.onerror = handleImageLoad; // proceed even on error
-
-      const coverImg = new Image();
-      coverImg.src = project.coverUrl;
-      coverImg.onload = handleImageLoad;
-      coverImg.onerror = handleImageLoad;
+    imagesToLoad.forEach((src) => {
+      const img = new Image();
+      img.src = src;
+      img.onload = handleImageLoad;
+      img.onerror = handleImageLoad;
     });
   }, []);
 
-  const activeProject = ps5ProjectsData[activeIndex];
+  const activeProject = ps5ProjectsData[activeIndex] || {};
 
   return (
     <div className="ps5-container">
@@ -43,12 +47,20 @@ export default function PS5Projects() {
       {/* Crossfading Backgrounds */}
       <div className="ps5-backgrounds">
         {ps5ProjectsData.map((project, index) => (
-          <img
-            key={project.id}
-            src={project.backgroundUrl}
-            alt={`${project.title} background`}
-            className={`ps5-bg-layer ${index === activeIndex ? 'active' : ''}`}
-          />
+          project.backgroundUrl ? (
+            <img
+              key={project.id}
+              src={project.backgroundUrl}
+              alt={`${project.title} background`}
+              className={`ps5-bg-layer ${index === activeIndex ? 'active' : ''}`}
+            />
+          ) : (
+            <div
+              key={project.id}
+              className={`ps5-bg-layer ps5-bg-fallback ${index === activeIndex ? 'active' : ''}`}
+              style={project.backgroundGradient ? { background: project.backgroundGradient } : undefined}
+            />
+          )
         ))}
         <div className="ps5-gradient-overlay" />
       </div>
@@ -57,14 +69,27 @@ export default function PS5Projects() {
         {/* Top Carousel */}
         <div className="ps5-carousel">
           {ps5ProjectsData.map((project, index) => (
-            <img
-              key={project.id}
-              src={project.coverUrl}
-              alt={`${project.title} cover`}
-              className={`ps5-icon ${index === activeIndex ? 'active' : ''}`}
-              onMouseEnter={() => setActiveIndex(index)}
-              onClick={() => setActiveIndex(index)}
-            />
+            project.coverUrl ? (
+              <img
+                key={project.id}
+                src={project.coverUrl}
+                alt={`${project.title} cover`}
+                className={`ps5-icon ${index === activeIndex ? 'active' : ''}`}
+                onMouseEnter={() => setActiveIndex(index)}
+                onClick={() => setActiveIndex(index)}
+              />
+            ) : (
+              <div
+                key={project.id}
+                className={`ps5-icon ps5-icon-fallback ${index === activeIndex ? 'active' : ''}`}
+                onMouseEnter={() => setActiveIndex(index)}
+                onClick={() => setActiveIndex(index)}
+              >
+                <span className="ps5-icon-fallback-text">
+                  {project.coverText || project.shortTitle || project.title}
+                </span>
+              </div>
+            )
           ))}
         </div>
 
@@ -77,10 +102,31 @@ export default function PS5Projects() {
               className="ps5-logo" 
             />
           ) : (
-            <h2 className="ps5-title">{activeProject.title}</h2>
+            <div className="ps5-text-logo-wrapper">
+              <h1 className="ps5-text-logo">
+                {activeProject.logoText || activeProject.title}
+              </h1>
+              {activeProject.subtitle && (
+                <div className="ps5-subtitle">{activeProject.subtitle}</div>
+              )}
+            </div>
           )}
           <p className="ps5-description">{activeProject.description}</p>
-          <button className="ps5-play-btn">Play Game</button>
+          {activeProject.playUrl ? (
+            <a 
+              href={activeProject.playUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="ps5-play-btn"
+              style={{ textDecoration: 'none' }}
+            >
+              {activeProject.buttonText || activeProject.playText || 'More information'}
+            </a>
+          ) : (
+            <button className="ps5-play-btn">
+              {activeProject.buttonText || activeProject.playText || 'More information'}
+            </button>
+          )}
         </div>
       </div>
     </div>
