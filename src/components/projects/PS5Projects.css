@@ -248,3 +248,71 @@
   opacity: 0;
   pointer-events: none;
 }
+
+/* ── PS5 Top Bar User Badge ──────────────────────────────────── */
+.ps5-dashboard-user-bar {
+  position: absolute;
+  top: 24px;
+  right: 32px;
+  z-index: 25;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 9999px;
+  padding: 6px 14px 6px 8px;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+}
+
+.ps5-user-avatar-small {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #e2b740;
+  box-shadow: 0 0 8px rgba(226, 183, 64, 0.4);
+}
+
+.ps5-user-info-small {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+.ps5-user-name-small {
+  font-size: 12px;
+  font-weight: 700;
+  color: #ffffff;
+  line-height: 1.2;
+}
+
+.ps5-user-role-small {
+  font-size: 10px;
+  color: #e2b740;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  line-height: 1.2;
+}
+
+.ps5-switch-profile-btn {
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #e2e8f0;
+  border-radius: 9999px;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 4px 10px;
+  cursor: pointer;
+  margin-left: 4px;
+  transition: all 0.2s ease;
+}
+
+.ps5-switch-profile-btn:hover {
+  background: #ffffff;
+  color: #0f172a;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}

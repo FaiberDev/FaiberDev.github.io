@@ -1,0 +1,376 @@
+/* ── Markdown Modal Overlay & Window ────────────────────────────────────── */
+.markdown-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 6, 14, 0.58);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.markdown-modal-window {
+  position: absolute;
+  background: rgba(18, 13, 24, 0.94);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.75), 0 0 32px rgba(240, 150, 170, 0.16);
+  border-radius: 14px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  will-change: transform, opacity;
+  box-sizing: border-box;
+}
+
+.markdown-modal-window.maximized {
+  top: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: calc(100% - 56px) !important;
+  border-radius: 0;
+  border: none;
+}
+
+/* ── Window Header ───────────────────────────────────────────────────────── */
+.markdown-modal-header {
+  background: rgba(255, 255, 255, 0.06);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  padding: 12px 18px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: grab;
+  user-select: none;
+  flex-shrink: 0;
+}
+
+.markdown-modal-header:active {
+  cursor: grabbing;
+}
+
+.markdown-modal-title-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.markdown-modal-badge {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  background: linear-gradient(135deg, rgba(240, 150, 170, 0.35), rgba(138, 20, 40, 0.45));
+  color: #ffb8d0;
+  padding: 2px 7px;
+  border-radius: 4px;
+  border: 1px solid rgba(240, 150, 170, 0.4);
+}
+
+.markdown-modal-title {
+  font-family: var(--font-title);
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #ffffff;
+  letter-spacing: 0.3px;
+}
+
+.markdown-modal-controls {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+/* ── Content Container & Custom Retro Scrollbars ─────────────────────────── */
+.markdown-scroll-container {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 32px 40px;
+  color: #ede8f2;
+  font-family: var(--font-main);
+  scrollbar-width: thin;
+  scrollbar-color: rgba(240, 150, 170, 0.5) rgba(0, 0, 0, 0.25);
+  user-select: text;
+}
+
+.markdown-scroll-container::-webkit-scrollbar {
+  width: 9px;
+  height: 9px;
+}
+
+.markdown-scroll-container::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.25);
+  border-radius: 4px;
+}
+
+.markdown-scroll-container::-webkit-scrollbar-thumb {
+  background: rgba(240, 150, 170, 0.45);
+  border-radius: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.markdown-scroll-container::-webkit-scrollbar-thumb:hover {
+  background: rgba(240, 150, 170, 0.8);
+}
+
+/* ── Typography & Prose Styling ─────────────────────────────────────────── */
+.markdown-prose {
+  max-width: 860px;
+  margin: 0 auto;
+  line-height: 1.72;
+}
+
+.markdown-prose h1,
+.markdown-prose h2,
+.markdown-prose h3,
+.markdown-prose h4 {
+  color: #ffffff;
+  font-family: var(--font-title);
+  font-weight: 700;
+  letter-spacing: -0.3px;
+  margin-top: 1.8em;
+  margin-bottom: 0.6em;
+}
+
+.markdown-prose h1 {
+  font-size: 2.1rem;
+  border-bottom: 1px solid rgba(240, 150, 170, 0.25);
+  padding-bottom: 12px;
+  margin-top: 0.4em;
+  background: linear-gradient(135deg, #ffffff 40%, #ff9ec6 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.markdown-prose h2 {
+  font-size: 1.48rem;
+  color: #ff9ec6;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  padding-bottom: 6px;
+}
+
+.markdown-prose h3 {
+  font-size: 1.22rem;
+  color: #f7d1df;
+}
+
+.markdown-prose h4 {
+  font-size: 1.05rem;
+  color: #f1b7cd;
+}
+
+.markdown-prose p {
+  color: #ded8e6;
+  font-size: 1.02rem;
+  margin-bottom: 1.25em;
+  line-height: 1.72;
+}
+
+.markdown-prose em {
+  color: #e4bbd1;
+  font-style: italic;
+}
+
+.markdown-prose strong {
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.markdown-prose hr {
+  border: none;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(240, 150, 170, 0.4) 0%, rgba(255, 255, 255, 0.1) 70%, transparent 100%);
+  margin: 2em 0;
+}
+
+/* Lists */
+.markdown-prose ul,
+.markdown-prose ol {
+  margin: 0.8em 0 1.3em 1.6em;
+  color: #ded8e6;
+}
+
+.markdown-prose li {
+  margin-bottom: 0.45em;
+  line-height: 1.65;
+}
+
+.markdown-prose li::marker {
+  color: #ff9ec6;
+}
+
+/* Blockquotes */
+.markdown-prose blockquote {
+  border-left: 3px solid rgba(240, 150, 170, 0.65);
+  background: rgba(240, 150, 170, 0.06);
+  padding: 12px 20px;
+  margin: 1.4em 0;
+  border-radius: 0 8px 8px 0;
+  color: #e8ddec;
+  font-style: italic;
+}
+
+/* Inline Code Capsules */
+.markdown-prose code:not(pre code) {
+  background: rgba(240, 150, 170, 0.18);
+  color: #ffb8d4;
+  padding: 2px 7px;
+  border-radius: 5px;
+  border: 1px solid rgba(240, 150, 170, 0.28);
+  font-family: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', Menlo, monospace;
+  font-size: 0.9em;
+}
+
+/* ── Code Blocks & Highlight.js Syntax Theme ─────────────────────────────── */
+.markdown-prose pre {
+  background: #0d0813;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 10px;
+  padding: 18px 22px;
+  margin: 1.5em 0;
+  overflow-x: auto;
+  font-family: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', Menlo, monospace;
+  font-size: 0.91rem;
+  line-height: 1.58;
+  box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.6), 0 4px 16px rgba(0, 0, 0, 0.3);
+  scrollbar-width: thin;
+  scrollbar-color: rgba(240, 150, 170, 0.35) rgba(0, 0, 0, 0.3);
+}
+
+.markdown-prose pre::-webkit-scrollbar {
+  height: 7px;
+}
+
+.markdown-prose pre::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 4px;
+}
+
+.markdown-prose pre::-webkit-scrollbar-thumb {
+  background: rgba(240, 150, 170, 0.35);
+  border-radius: 4px;
+}
+
+.markdown-prose pre code {
+  color: #f6f4f8;
+  background: transparent;
+  padding: 0;
+  border: none;
+  font-size: inherit;
+  font-family: inherit;
+  text-shadow: none;
+}
+
+/* Highlight.js Tokens */
+.hljs-keyword,
+.hljs-selector-tag {
+  color: #ff79c6;
+  font-weight: 600;
+}
+
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet {
+  color: #f1fa8c;
+}
+
+.hljs-title,
+.hljs-title.function_,
+.hljs-function {
+  color: #80ffea;
+  font-weight: 500;
+}
+
+.hljs-title.class_,
+.hljs-type,
+.hljs-built_in {
+  color: #ffb86c;
+}
+
+.hljs-number {
+  color: #bd93f9;
+}
+
+.hljs-comment,
+.hljs-quote {
+  color: #797188;
+  font-style: italic;
+}
+
+.hljs-attr,
+.hljs-variable,
+.hljs-template-variable {
+  color: #50fa7b;
+}
+
+.hljs-operator,
+.hljs-punctuation {
+  color: #ded9e5;
+}
+
+.hljs-params {
+  color: #f8f8f2;
+}
+
+.hljs-meta {
+  color: #ff79c6;
+}
+
+/* ── GitHub Flavored Markdown Tables ─────────────────────────────────────── */
+.markdown-prose table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.6em 0;
+  font-size: 0.94rem;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.markdown-prose th,
+.markdown-prose td {
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 10px 14px;
+  text-align: left;
+}
+
+.markdown-prose th {
+  background: rgba(240, 150, 170, 0.12);
+  color: #ff9ec6;
+  font-weight: 600;
+}
+
+.markdown-prose tr:nth-child(even) {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.markdown-prose tr:hover {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+/* ── Responsive Behavior ─────────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .markdown-modal-window {
+    width: calc(100vw - 20px) !important;
+    height: calc(100vh - 76px) !important;
+    left: 10px !important;
+    top: 10px !important;
+  }
+
+  .markdown-scroll-container {
+    padding: 20px 18px;
+  }
+
+  .markdown-prose h1 {
+    font-size: 1.6rem;
+  }
+
+  .markdown-prose h2 {
+    font-size: 1.25rem;
+  }
+}

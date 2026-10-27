@@ -175,6 +175,101 @@ body {
   z-index: 10;
 }
 
+/* ── Desktop User Badge (Upper Right) ────────────────────────── */
+.desktop-user-pill {
+  position: absolute;
+  top: 24px;
+  right: 28px;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(255, 255, 255, 0.45);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  border-radius: 9999px;
+  padding: 6px 14px 6px 8px;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.4);
+  transition: all 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+  user-select: none;
+}
+
+.desktop-user-pill:hover {
+  transform: translateY(-2px);
+  background: rgba(255, 255, 255, 0.7);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+}
+
+.desktop-user-avatar {
+  position: relative;
+  width: 34px;
+  height: 34px;
+  flex-shrink: 0;
+}
+
+.desktop-user-avatar img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #e2b740;
+  box-shadow: 0 0 8px rgba(226, 183, 64, 0.4);
+}
+
+.desktop-user-online {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 9px;
+  height: 9px;
+  background: #10b981;
+  border: 2px solid #ffffff;
+  border-radius: 50%;
+  box-shadow: 0 0 4px #10b981;
+}
+
+.desktop-user-meta {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+.desktop-user-name {
+  font-size: 13px;
+  font-weight: 700;
+  color: #1f2937;
+  line-height: 1.2;
+}
+
+.desktop-user-role {
+  font-size: 10px;
+  font-weight: 600;
+  color: #b45309;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  line-height: 1.2;
+}
+
+.desktop-switch-user-btn {
+  background: rgba(0, 0, 0, 0.06);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  color: #374151;
+  border-radius: 9999px;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 4px 10px;
+  cursor: pointer;
+  margin-left: 4px;
+  transition: all 0.2s ease;
+}
+
+.desktop-switch-user-btn:hover {
+  background: #1f2937;
+  color: #ffffff;
+  border-color: #1f2937;
+}
+
 .desktop-icon {
   display: flex;
   flex-direction: column;
@@ -242,13 +337,16 @@ body {
 .taskbar-tab {
   font-family: var(--font-main);
   font-size: 0.95rem;
-  padding: 6px 16px;
+  padding: 6px 14px;
   background: transparent;
   border: 1px solid transparent;
   color: var(--text-primary);
   border-radius: 8px;
   cursor: pointer;
   font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
   transition: all 0.2s cubic-bezier(0.2, 1, 0.3, 1);
 }
 
@@ -263,6 +361,26 @@ body {
   border: 1px solid var(--glass-border);
   color: var(--text-primary);
   box-shadow: 0 2px 8px rgba(255, 255, 255, 0.3);
+}
+
+.taskbar-tab-close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  font-size: 13px;
+  line-height: 1;
+  opacity: 0.5;
+  transition: all 0.2s ease;
+  margin-left: 2px;
+}
+
+.taskbar-tab-close:hover {
+  opacity: 1;
+  background-color: #ff5f56;
+  color: #ffffff;
 }
 
 /* Tools / System Tray */
@@ -389,12 +507,25 @@ body {
   border-radius: 14px;
   overflow: hidden;
   z-index: 1000;
-  transition: box-shadow 0.2s;
+  transition: width 0.32s cubic-bezier(0.16, 1, 0.3, 1),
+              height 0.32s cubic-bezier(0.16, 1, 0.3, 1),
+              top 0.32s cubic-bezier(0.16, 1, 0.3, 1),
+              left 0.32s cubic-bezier(0.16, 1, 0.3, 1),
+              border-radius 0.25s ease,
+              box-shadow 0.25s ease,
+              opacity 0.2s ease;
+  will-change: width, height, top, left, transform;
+}
+
+.window.is-dragging {
+  transition: none !important;
+  cursor: grabbing !important;
+  box-shadow: 0 20px 56px 0 rgba(0, 0, 0, 0.6) !important;
 }
 
 .window.active {
-  box-shadow: 0 12px 48px 0 rgba(0, 0, 0, 0.5);
-  border: 1px solid rgba(255,255,255,0.4);
+  box-shadow: 0 16px 52px 0 rgba(0, 0, 0, 0.52), inset 0 1px 0 rgba(255, 255, 255, 0.75);
+  border: 1px solid rgba(255, 255, 255, 0.7);
 }
 
 .window.hidden {
@@ -411,13 +542,14 @@ body {
 }
 
 .window-header {
-  background: rgba(255,255,255,0.08);
+  background: rgba(255, 255, 255, 0.12);
   border-bottom: 1px solid var(--glass-border);
   padding: 12px 16px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   cursor: grab;
+  user-select: none;
 }
 
 .window-header:active {
@@ -426,37 +558,72 @@ body {
 
 .window-title {
   font-size: 0.95rem;
-  font-weight: 500;
+  font-weight: 600;
   color: var(--text-primary);
   letter-spacing: 0.3px;
+  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.3);
 }
 
-/* Modern Window Controls */
+/* Modern Window Controls with Mac-like hover glyphs */
 .window-controls {
   display: flex;
   gap: 8px;
+  align-items: center;
 }
 
 .win-btn {
-  width: 12px;
-  height: 12px;
+  width: 13px;
+  height: 13px;
   border: none;
   border-radius: 50%;
   cursor: pointer;
-  opacity: 0.8;
-  transition: opacity 0.2s, transform 0.1s;
+  opacity: 0.85;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 8px;
+  font-weight: 800;
+  line-height: 1;
+  color: transparent;
+  transition: opacity 0.15s ease, transform 0.15s cubic-bezier(0.2, 1, 0.3, 1), background-color 0.15s ease;
+}
+
+.window-controls:hover .win-btn {
+  opacity: 1;
+  color: rgba(0, 0, 0, 0.65);
 }
 
 .win-btn:hover {
+  transform: scale(1.18);
   opacity: 1;
 }
+
 .win-btn:active {
-  transform: scale(0.9);
+  transform: scale(0.92);
 }
 
-.win-btn.close { background-color: #ff5f56; }
-.win-btn.min { background-color: #ffbd2e; }
-.win-btn.max { background-color: #27c93f; }
+.win-btn.close {
+  background-color: #ff5f56;
+}
+.win-btn.close::before {
+  content: '✕';
+}
+
+.win-btn.min {
+  background-color: #ffbd2e;
+}
+.win-btn.min::before {
+  content: '−';
+  font-size: 10px;
+}
+
+.win-btn.max {
+  background-color: #27c93f;
+}
+.win-btn.max::before {
+  content: '+';
+  font-size: 10px;
+}
 
 .window-content {
   flex: 1;

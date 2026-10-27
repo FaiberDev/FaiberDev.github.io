@@ -1,7 +1,11 @@
 import { useState, useReducer, useEffect, useRef } from 'react';
 import Window from '../window/Window';
 import PS5Projects from '../projects/PS5Projects';
+import PS5Intro from '../projects/PS5Intro';
 import Notes from '../notes/Notes';
+import About from '../about/About';
+import MarkdownModal from '../modal/MarkdownModal';
+import { NotesDocIcon } from '../common/Icons';
 import { wallpapers } from '../../data/wallpapers';
 
 const ICONS = [
@@ -81,14 +85,16 @@ function NotesIcon() {
     <div style={{
       width: '56px',
       height: '56px',
-      borderRadius: '12px',
-      boxShadow: '0 2px 8px rgba(0,0,0,0.2)',
+      borderRadius: '14px',
+      background: 'linear-gradient(135deg, #ffffff 0%, #f3f4f6 100%)',
+      border: '1px solid rgba(255, 255, 255, 0.9)',
+      boxShadow: '0 4px 14px rgba(0,0,0,0.18)',
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
-      fontSize: '32px'
+      color: '#d9466f'
     }}>
-      📝
+      <NotesDocIcon size={28} />
     </div>
   );
 }
@@ -119,78 +125,24 @@ const WINDOW_DEFS = {
   },
   about: {
     title: 'About Me',
-    size: { w: 600, h: 420 },
+    size: { w: 720, h: 570 },
+    className: 'about-window',
     allowMaximize: false,
-    content: (
-      <div style={{ 
-        padding: '32px', 
-        color: '#1A1A1A', 
-        backgroundColor: 'rgba(250, 250, 250, 0.95)',
-        minHeight: '100%',
-        display: 'flex',
-        flexDirection: 'column',
-        gap: '32px'
-      }}>
-        {/* Top Section: Profile Pic & Info */}
-        <div style={{ display: 'flex', gap: '32px', alignItems: 'center' }}>
-          {/* Profile Picture Placeholder */}
-          <div style={{
-            width: '120px',
-            height: '120px',
-            borderRadius: '20px',
-            backgroundColor: '#d9d9d9',
-            boxShadow: '0 4px 14px rgba(0, 0, 0, 0.1)',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            flexShrink: 0,
-            overflow: 'hidden'
-          }}>
-            <img 
-              src="/assets/icons/faiberpfp.jpeg" 
-              alt="Faiber Piedrahita Profile" 
-              style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
-            />
-          </div>
-
-          {/* Structured Info */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', fontSize: '1rem' }}>
-            <div style={{ display: 'flex' }}>
-              <span style={{ fontWeight: 'bold', width: '95px', flexShrink: 0 }}>NAME:</span> 
-              <span>Faiber Piedrahita</span>
-            </div>
-            <div style={{ display: 'flex' }}>
-              <span style={{ fontWeight: 'bold', width: '95px', flexShrink: 0 }}>POSITION:</span> 
-              <span>Gameplay Programmer & Game Developer</span>
-            </div>
-            <div style={{ display: 'flex' }}>
-              <span style={{ fontWeight: 'bold', width: '95px', flexShrink: 0 }}>MAIL:</span> 
-              <span>contact@faiber.dev</span>
-            </div>
-          </div>
-        </div>
-
-        {/* Bio Section */}
-        <div style={{
-          backgroundColor: '#e6e6e6',
-          padding: '24px',
-          borderRadius: '16px',
-          fontSize: '1.1rem',
-          lineHeight: '1.6',
-          color: '#1A1A1A'
-        }}>
-          I love building cozy, interactive experiences. Welcome to my modern desktop portfolio
-        </div>
-      </div>
-    ),
+    content: <About />,
   },
 };
 
 export default function Desktop() {
+  const [isBooted, setIsBooted] = useState(false);
   const [windows, dispatch] = useReducer(windowsReducer, {});
   const zRef = useRef(1000);
   const [activeWallpaper, setActiveWallpaper] = useState(wallpapers[0]);
   const [showWallpaperMenu, setShowWallpaperMenu] = useState(false);
+  const [pongModal, setPongModal] = useState({
+    isOpen: false,
+    originRect: null,
+    zIndex: 2000,
+  });
   const videoRef = useRef(null);
   const clock = useClock();
 
@@ -210,20 +162,97 @@ export default function Desktop() {
     dispatch({ type: 'FOCUS', id, z: zRef.current });
   };
 
-  const handleWindowClose = (id, action) => {
+  const windowControllers = useRef(new Map());
+
+  const registerController = (id, controller) => {
+    if (controller) {
+      windowControllers.current.set(id, controller);
+    } else {
+      windowControllers.current.delete(id);
+    }
+  };
+
+  const dispatchDirect = (id, action) => {
     if (action === 'close')    dispatch({ type: 'CLOSE', id });
     if (action === 'minimize') dispatch({ type: 'MINIMIZE', id });
   };
 
+  const handleWindowClose = (id, action) => {
+    const ctrl = windowControllers.current.get(id);
+    if (ctrl && action === 'close') {
+      ctrl.close();
+      return;
+    }
+    if (ctrl && action === 'minimize') {
+      ctrl.minimize();
+      return;
+    }
+    dispatchDirect(id, action);
+  };
+
+  const openPongModal = (originRect) => {
+    zRef.current++;
+    setPongModal({
+      isOpen: true,
+      originRect: originRect ?? null,
+      zIndex: zRef.current + 100,
+    });
+  };
+
+  const closePongModal = () => {
+    setPongModal((prev) => ({ ...prev, isOpen: false }));
+  };
+
   return (
     <div className="desktop">
+      {/* Initial Startup / PS5 Boot Sequence */}
+      {!isBooted && (
+        <PS5Intro onLogin={() => setIsBooted(true)} />
+      )}
+
       <video ref={videoRef} className="desktop-bg" autoPlay loop muted />
+
+      {/* Upper Right Current User Badge - ONLY on the wallpaper when booted */}
+      {isBooted && (
+        <div className="desktop-user-pill">
+          <div className="desktop-user-avatar">
+            <img src="/assets/icons/faiberpfp.jpeg" alt="Faiber Piedrahita" />
+            <span className="desktop-user-online" title="Online" />
+          </div>
+          <div
+            className="desktop-user-meta"
+            style={{ cursor: 'pointer' }}
+            onClick={() => openWindow('about')}
+          >
+            <span className="desktop-user-name">Faiber Piedrahita</span>
+            <span className="desktop-user-role">Gameplay Programmer</span>
+          </div>
+          <button
+            className="desktop-switch-user-btn"
+            title="Switch User / PS5 Intro"
+            onClick={() => setIsBooted(false)}
+          >
+            Switch User
+          </button>
+        </div>
+      )}
 
       <div className="desktop-icons">
         {ICONS.map(({ id, label }) => (
-          <div key={id} className="desktop-icon" onClick={() => openWindow(id)}>
+          <div
+            key={id}
+            className="desktop-icon"
+            onClick={() => openWindow(id)}
+            onTouchEnd={() => openWindow(id)}
+          >
             <div className="icon-img">
-              {id === 'projects' ? <FolderIcon /> : id === 'notes' ? <NotesIcon /> : <UserIcon />}
+              {id === 'projects' ? (
+                <FolderIcon />
+              ) : id === 'notes' ? (
+                <NotesIcon />
+              ) : (
+                <UserIcon />
+              )}
             </div>
             <span className="icon-label">{label}</span>
           </div>
@@ -244,10 +273,20 @@ export default function Desktop() {
             zIndex={win.z}
             isMinimized={win.minimized}
             allowMaximize={def.allowMaximize !== false}
-            onClose={(action) => handleWindowClose(id, action)}
+            registerController={registerController}
+            onClose={(action) => dispatchDirect(id, action)}
             onFocus={() => focusWindow(id)}
           >
-            {def.content}
+            {id === 'projects' ? (
+              <PS5Projects
+                onOpenArchitecture={(data) => {
+                  const rect = data?.originRect || data;
+                  openPongModal(rect);
+                }}
+              />
+            ) : (
+              def.content
+            )}
           </Window>
         );
       })}
@@ -278,20 +317,37 @@ export default function Desktop() {
               <button
                 key={id}
                 className={`taskbar-tab${!win.minimized ? ' active' : ''}`}
+                title="Click to focus/minimize, Right-click to close"
+                onContextMenu={(e) => {
+                  e.preventDefault();
+                  handleWindowClose(id, 'close');
+                }}
                 onClick={() => {
                   if (win.minimized) {
                     openWindow(id);
                   } else {
-                    const maxZ = Math.max(...Object.values(windows).map(w => w.z || 0));
+                    const maxZ = Math.max(...Object.values(windows).map((w) => w.z || 0));
                     if (win.z === maxZ) {
-                      dispatch({ type: 'MINIMIZE', id });
+                      handleWindowClose(id, 'minimize');
                     } else {
                       focusWindow(id);
                     }
                   }
                 }}
               >
-                {def?.title ?? id}
+                <span>{def?.title ?? id}</span>
+                <span
+                  className="taskbar-tab-close"
+                  title="Close Window"
+                  onMouseDown={(e) => e.stopPropagation()}
+                  onPointerDown={(e) => e.stopPropagation()}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleWindowClose(id, 'close');
+                  }}
+                >
+                  ✕
+                </span>
               </button>
             );
           })}
@@ -308,6 +364,14 @@ export default function Desktop() {
           <span className="sys-clock">{clock}</span>
         </div>
       </div>
+
+      {/* Retro OS Markdown Deep-Dive Modal */}
+      <MarkdownModal
+        isOpen={pongModal.isOpen}
+        originRect={pongModal.originRect}
+        zIndex={pongModal.zIndex}
+        onClose={closePongModal}
+      />
     </div>
   );
 }

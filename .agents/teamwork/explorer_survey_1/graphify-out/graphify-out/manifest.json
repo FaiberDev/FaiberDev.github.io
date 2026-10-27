@@ -1,0 +1,140 @@
+{
+  "PingBall.Target.cs": {
+    "mtime": 1792005334.470968,
+    "seen": 1792007899.837899,
+    "ast_hash": "ebc991d2f253c2b76f0d59b1cbf0aec0",
+    "semantic_hash": "ebc991d2f253c2b76f0d59b1cbf0aec0"
+  },
+  "PingBall/Ball/Ball.cpp": {
+    "mtime": 1792005334.4711409,
+    "seen": 1792007899.837903,
+    "ast_hash": "c0fcf6698a52dafe37a15f53f5114303",
+    "semantic_hash": "c0fcf6698a52dafe37a15f53f5114303"
+  },
+  "PingBall/Ball/Ball.h": {
+    "mtime": 1792005334.4712372,
+    "seen": 1792007899.8379054,
+    "ast_hash": "d66acef636336f48498746b33a2ee236",
+    "semantic_hash": "d66acef636336f48498746b33a2ee236"
+  },
+  "PingBall/Ball/BallGenerator.cpp": {
+    "mtime": 1792005334.4712372,
+    "seen": 1792007899.8379066,
+    "ast_hash": "7a60ab0165c36a52a4c876ae30071eae",
+    "semantic_hash": "7a60ab0165c36a52a4c876ae30071eae"
+  },
+  "PingBall/Ball/BallGenerator.h": {
+    "mtime": 1792005334.4712372,
+    "seen": 1792007899.8379078,
+    "ast_hash": "dc93e335a2a58bb5235eea54cb996480",
+    "semantic_hash": "dc93e335a2a58bb5235eea54cb996480"
+  },
+  "PingBall/ColorBall.cpp": {
+    "mtime": 1792005334.4712372,
+    "seen": 1792007899.8379085,
+    "ast_hash": "3d14feb48e4add8c8a2490e0d6d187a8",
+    "semantic_hash": "3d14feb48e4add8c8a2490e0d6d187a8"
+  },
+  "PingBall/ColorBall.h": {
+    "mtime": 1792005334.4712372,
+    "seen": 1792007899.8379095,
+    "ast_hash": "5c43e41b0c8f528d6f02f2e030354d90",
+    "semantic_hash": "5c43e41b0c8f528d6f02f2e030354d90"
+  },
+  "PingBall/GameMode/BaseGameMode.cpp": {
+    "mtime": 1792005334.4712372,
+    "seen": 1792007899.8379104,
+    "ast_hash": "fd84a13857a7b76fed234410132c93ff",
+    "semantic_hash": "fd84a13857a7b76fed234410132c93ff"
+  },
+  "PingBall/GameMode/BaseGameMode.h": {
+    "mtime": 1792005334.471509,
+    "seen": 1792007899.8379114,
+    "ast_hash": "3939be3164c92f6a6910ec5d22b49678",
+    "semantic_hash": "3939be3164c92f6a6910ec5d22b49678"
+  },
+  "PingBall/Metronome/Metronome.cpp": {
+    "mtime": 1792005334.471509,
+    "seen": 1792007899.837912,
+    "ast_hash": "ad60049b58013505f18ac6184c2d673d",
+    "semantic_hash": "ad60049b58013505f18ac6184c2d673d"
+  },
+  "PingBall/Metronome/Metronome.h": {
+    "mtime": 1792005334.4716141,
+    "seen": 1792007899.837913,
+    "ast_hash": "08c9efeb51f652fd4b516a6d4b4b1ce0",
+    "semantic_hash": "08c9efeb51f652fd4b516a6d4b4b1ce0"
+  },
+  "PingBall/MusicPlayer/AMusicPlayer.cpp": {
+    "mtime": 1792005334.4716141,
+    "seen": 1792007899.8379142,
+    "ast_hash": "e68cf184b8c52e2c95679182f1f0e008",
+    "semantic_hash": "e68cf184b8c52e2c95679182f1f0e008"
+  },
+  "PingBall/MusicPlayer/AMusicPlayer.h": {
+    "mtime": 1792005334.4717107,
+    "seen": 1792007899.8379154,
+    "ast_hash": "085a3398c6c72c8e2e420d54934409be",
+    "semantic_hash": "085a3398c6c72c8e2e420d54934409be"
+  },
+  "PingBall/PingBall.Build.cs": {
+    "mtime": 1792005334.4717107,
+    "seen": 1792007899.8379164,
+    "ast_hash": "3aef99db4edd51a4b427b65cf4daf5a9",
+    "semantic_hash": "3aef99db4edd51a4b427b65cf4daf5a9"
+  },
+  "PingBall/PingBall.cpp": {
+    "mtime": 1792005334.4717107,
+    "seen": 1792007899.8379173,
+    "ast_hash": "239cb4f258b30bb1aa143927ddab40ec",
+    "semantic_hash": "239cb4f258b30bb1aa143927ddab40ec"
+  },
+  "PingBall/PingBall.h": {
+    "mtime": 1792005334.4717107,
+    "seen": 1792007899.8379188,
+    "ast_hash": "6cd4ef8c43c29182ec5ee93fff56711f",
+    "semantic_hash": "6cd4ef8c43c29182ec5ee93fff56711f"
+  },
+  "PingBall/Player/ARythmPaddle.cpp": {
+    "mtime": 1792005334.4717107,
+    "seen": 1792007899.8379197,
+    "ast_hash": "18cbdfb2fe63605ff82870ff5c6d8c80",
+    "semantic_hash": "18cbdfb2fe63605ff82870ff5c6d8c80"
+  },
+  "PingBall/Player/ARythmPaddle.h": {
+    "mtime": 1792005334.4718962,
+    "seen": 1792007899.8379204,
+    "ast_hash": "27e6d227c2122fa4527b3faff5d2fc30",
+    "semantic_hash": "27e6d227c2122fa4527b3faff5d2fc30"
+  },
+  "PingBall/RhythmStoreSubsystem.cpp": {
+    "mtime": 1792005334.4718962,
+    "seen": 1792007899.8379216,
+    "ast_hash": "c7cb02d6a90aba969ea08cfcfbb8a0ae",
+    "semantic_hash": "c7cb02d6a90aba969ea08cfcfbb8a0ae"
+  },
+  "PingBall/RhythmStoreSubsystem.h": {
+    "mtime": 1792005334.4718962,
+    "seen": 1792007899.8379223,
+    "ast_hash": "d2f8f2a9ed5fdd05d4af1e7afc187293",
+    "semantic_hash": "d2f8f2a9ed5fdd05d4af1e7afc187293"
+  },
+  "PingBall/Utilities/RhythmChartParser.cpp": {
+    "mtime": 1792005334.4718962,
+    "seen": 1792007899.8379233,
+    "ast_hash": "1587d3ec559e0c2bf716716f097b9c5f",
+    "semantic_hash": "1587d3ec559e0c2bf716716f097b9c5f"
+  },
+  "PingBall/Utilities/RhythmChartParser.h": {
+    "mtime": 1792005334.472083,
+    "seen": 1792007899.837924,
+    "ast_hash": "32be0d5534b6ff9c765ef3e75446a7d5",
+    "semantic_hash": "32be0d5534b6ff9c765ef3e75446a7d5"
+  },
+  "PingBallEditor.Target.cs": {
+    "mtime": 1792005334.472083,
+    "seen": 1792007899.8379254,
+    "ast_hash": "c0fb31ecae4a52211965d71bd503eb7a",
+    "semantic_hash": "c0fb31ecae4a52211965d71bd503eb7a"
+  }
+}

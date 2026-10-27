@@ -1,0 +1,164 @@
+/* ── Minimalist PS5 Intro Boot Screen ──────────────────────────── */
+.ps5-intro-container {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #06080d;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  z-index: 99999;
+  cursor: pointer;
+  user-select: none;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+  color: #ffffff;
+}
+
+/* Volumetric Golden Sunbeam from Top Left (as in official PS5 boot) */
+.ps5-intro-light-beam {
+  position: absolute;
+  top: -15%;
+  left: 5%;
+  width: 75vw;
+  height: 85vh;
+  background: radial-gradient(
+    ellipse 60% 50% at 20% 0%,
+    rgba(235, 195, 125, 0.16) 0%,
+    rgba(180, 140, 80, 0.07) 35%,
+    rgba(0, 0, 0, 0) 70%
+  );
+  pointer-events: none;
+  filter: blur(50px);
+  z-index: 1;
+}
+
+/* Ambient Particles Canvas */
+.ps5-intro-particles {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* Minimalist Center Presentation */
+.ps5-intro-center {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 28px;
+  text-align: center;
+  pointer-events: none;
+}
+
+/* Minimalist Prompt (Matches exact PS5 reference phrasing and styling) */
+.ps5-intro-prompt {
+  font-size: 16px;
+  font-weight: 300;
+  letter-spacing: 0.6px;
+  color: #e2e8f0;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.8), 0 0 20px rgba(235, 195, 125, 0.2);
+  margin-bottom: 8px;
+  opacity: 0.95;
+  animation: ps5-text-glow 4s infinite ease-in-out;
+}
+
+/* Glowing Circular Avatar Frame */
+.ps5-intro-avatar-circle {
+  position: relative;
+  width: 96px;
+  height: 96px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ps5-intro-avatar-ring {
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.7);
+  box-shadow: 0 0 25px rgba(255, 255, 255, 0.4), inset 0 0 15px rgba(235, 195, 125, 0.25);
+  animation: ps5-ring-pulse 3.5s infinite ease-in-out;
+}
+
+.ps5-intro-avatar-img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #ffffff;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.7);
+}
+
+/* Profile Identification Under Avatar */
+.ps5-intro-profile-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.ps5-intro-name {
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: 0.6px;
+  color: #ffffff;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.7);
+}
+
+.ps5-intro-role {
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 1.8px;
+  color: #e5c158;
+  text-transform: uppercase;
+  text-shadow: 0 0 12px rgba(229, 193, 88, 0.35);
+}
+
+/* Shockwave Flash Ripple on Click */
+.ps5-intro-shockwave {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.85);
+  pointer-events: none;
+  opacity: 0;
+  transform: translate(-50%, -50%);
+  z-index: 20;
+}
+
+/* Animations */
+@keyframes ps5-ring-pulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.65;
+    border-color: rgba(255, 255, 255, 0.6);
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.35);
+  }
+  50% {
+    transform: scale(1.06);
+    opacity: 0.95;
+    border-color: rgba(235, 195, 125, 0.9);
+    box-shadow: 0 0 35px rgba(235, 195, 125, 0.6), inset 0 0 20px rgba(235, 195, 125, 0.3);
+  }
+}
+
+@keyframes ps5-text-glow {
+  0%, 100% {
+    opacity: 0.85;
+  }
+  50% {
+    opacity: 1;
+    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.8), 0 0 24px rgba(235, 195, 125, 0.35);
+  }
+}

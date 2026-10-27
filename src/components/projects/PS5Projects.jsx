@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { ps5ProjectsData } from '../../data/ps5Projects';
 import './PS5Projects.css';
 
-export default function PS5Projects() {
+export default function PS5Projects({ onOpenArchitecture }) {
   const [activeIndex, setActiveIndex] = useState(0);
   const [imagesLoaded, setImagesLoaded] = useState(false);
 
@@ -123,7 +123,16 @@ export default function PS5Projects() {
               {activeProject.buttonText || activeProject.playText || 'More information'}
             </a>
           ) : (
-            <button className="ps5-play-btn">
+            <button 
+              className="ps5-play-btn"
+              onClick={(e) => {
+                const rect = e.currentTarget.getBoundingClientRect();
+                onOpenArchitecture?.({
+                  id: activeProject.id,
+                  originRect: rect,
+                });
+              }}
+            >
               {activeProject.buttonText || activeProject.playText || 'More information'}
             </button>
           )}

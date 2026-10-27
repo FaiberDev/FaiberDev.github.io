@@ -1,0 +1,68 @@
+--- a/src/components/modal/MarkdownModal.jsx
++++ b/src/components/modal/MarkdownModal.jsx
+@@ -21,6 +21,15 @@ export default function MarkdownModal({
+   const [isClosing, setIsClosing] = useState(false);
+   const [isMaximized, setIsMaximized] = useState(false);
+ 
++  // Synchronize isClosing during render when isOpen transitions to true
++  // Follows React recommendation: adjusting state during render when a prop changes
++  const [prevIsOpen, setPrevIsOpen] = useState(isOpen);
++  if (prevIsOpen !== isOpen) {
++    setPrevIsOpen(isOpen);
++    if (isOpen) {
++      setIsClosing(false);
++    }
++  }
++
+   // Compute resting dimensions based on current window size
+   const modalWidth = useMemo(() => Math.min(940, window.innerWidth * 0.9), []);
+   const modalHeight = useMemo(() => Math.min(700, window.innerHeight * 0.84), []);
+@@ -54,14 +63,12 @@ export default function MarkdownModal({
+   }, [originRect, isMaximized, modalWidth, modalHeight, pos.x, pos.y]);
+ 
+-  const { contextSafe } = useGSAP({ scope: containerRef });
+-
+-  // Spring entrance animation originating from trigger
+-  useGSAP(() => {
+-    if (!windowRef.current) return;
+-    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
++  // Spring entrance animation originating from trigger and contextSafe provider
++  const { contextSafe } = useGSAP(() => {
++    if (!isOpen || !windowRef.current) return;
++    const prefersReduced = typeof window !== 'undefined' && window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches;
+     const { deltaX, deltaY, scaleStart } = getOriginDeltas();
+ 
+     if (prefersReduced) {
+@@ -90,7 +97,7 @@ export default function MarkdownModal({
+         clearProps: 'transform',
+       }
+     );
+-  }, { scope: containerRef, dependencies: [] });
++  }, { scope: containerRef, dependencies: [isOpen] });
+ 
+   // Reverse unmount exit animation back to trigger
+   const handleClose = useCallback(() => {
+@@ -98,7 +105,7 @@ export default function MarkdownModal({
+     setIsClosing(true);
+ 
+-    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
++    const prefersReduced = typeof window !== 'undefined' && window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches;
+     const target = windowRef.current;
+ 
+     contextSafe(() => {
+@@ -107,6 +114,7 @@ export default function MarkdownModal({
+           autoAlpha: 0,
+           duration: 0.15,
+           onComplete: () => {
++            setIsClosing(false);
+             onClose?.();
+           },
+         });
+@@ -123,6 +131,7 @@ export default function MarkdownModal({
+         duration: 0.24,
+         ease: 'power2.in',
+         onComplete: () => {
++          setIsClosing(false);
+           onClose?.();
+         },
+       });
