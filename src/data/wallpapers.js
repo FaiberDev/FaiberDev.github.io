@@ -3,7 +3,7 @@ export const wallpapers = [
     id: 'sakura',
     name: 'Sakura House',
     src: '/assets/sakura.mp4',
-    icon: '🌸',
+    icon: '/assets/icons/pixel-sakura.webp',
     colors: {
       '--bg-color': '#ffd1dc',
       '--border-color': '#4a2333',
@@ -16,7 +16,7 @@ export const wallpapers = [
     id: 'berserker',
     name: 'Berserker',
     src: '/assets/berserker.mp4',
-    icon: '🔥',
+    icon: '/assets/icons/pixel-flame.webp',
     colors: {
       '--bg-color': '#ff9999',
       '--border-color': '#330000',
@@ -29,7 +29,7 @@ export const wallpapers = [
     id: 'tree',
     name: 'Crimson Tree',
     src: '/assets/tree.mp4',
-    icon: '🍁',
+    icon: '/assets/icons/pixel-maple.webp',
     colors: {
       '--bg-color': '#ffb3ba',
       '--border-color': '#4a0008',

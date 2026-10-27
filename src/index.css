@@ -435,37 +435,48 @@ body {
 .wallpaper-menu-container {
   position: absolute;
   right: 20px;
-  bottom: 70px; /* Float above taskbar */
-  background: rgba(20, 20, 20, 0.6);
-  backdrop-filter: var(--glass-blur);
-  -webkit-backdrop-filter: var(--glass-blur);
-  border: 1px solid var(--glass-border);
+  bottom: 72px; /* Float comfortably above taskbar */
+  background: rgba(18, 14, 24, 0.88);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.22);
   border-radius: 16px;
-  padding: 16px;
+  padding: 14px 16px 16px;
   display: flex;
   flex-direction: column;
   gap: 12px;
   z-index: 9500;
-  box-shadow: var(--glass-shadow);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6), 0 0 24px rgba(240, 150, 170, 0.14), inset 0 1px 0 rgba(255, 255, 255, 0.2);
   opacity: 0;
-  transform: translateY(10px);
+  transform: translateY(10px) scale(0.97);
   pointer-events: none;
-  transition: all 0.2s cubic-bezier(0.2, 1, 0.3, 1);
+  transition: all 0.22s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
 .wallpaper-menu-container.visible {
   opacity: 1;
-  transform: translateY(0);
+  transform: translateY(0) scale(1);
   pointer-events: auto;
 }
 
 .wallpaper-menu-title {
-  font-size: 0.85rem;
+  font-size: 0.76rem;
   text-transform: uppercase;
-  color: var(--text-secondary);
-  font-weight: 600;
-  letter-spacing: 0.5px;
-  margin-bottom: 4px;
+  color: #ffffff;
+  font-weight: 700;
+  letter-spacing: 1px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.14);
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
+  user-select: none;
+}
+
+.wallpaper-menu-title svg {
+  color: #f4b6c2;
+  opacity: 0.95;
 }
 
 .wallpaper-list {
@@ -475,23 +486,61 @@ body {
 }
 
 .wallpaper-btn {
-  width: 60px;
-  height: 60px;
+  width: 58px;
+  height: 58px;
   border-radius: 12px;
-  background-color: var(--accent);
-  border: 1px solid var(--glass-border);
+  background: rgba(255, 255, 255, 0.12);
+  border: 1.5px solid rgba(255, 255, 255, 0.25);
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
   display: flex;
   justify-content: center;
   align-items: center;
   font-size: 1.5rem;
+  position: relative;
+  outline: none;
+  padding: 0;
 }
 
-.wallpaper-btn:hover, .wallpaper-btn.active {
-  background-color: var(--accent-hover);
-  border-color: #fff;
-  transform: scale(1.05);
+.wallpaper-btn:hover {
+  background: rgba(255, 255, 255, 0.24);
+  border-color: rgba(255, 255, 255, 0.6);
+  transform: translateY(-2px) scale(1.04);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+}
+
+.wallpaper-btn.active {
+  background: rgba(255, 255, 255, 0.32);
+  border-color: #ffffff;
+  box-shadow: 0 0 14px rgba(255, 255, 255, 0.4), inset 0 0 8px rgba(255, 255, 255, 0.25);
+  transform: scale(1.04);
+}
+
+.wallpaper-btn.active::after {
+  content: '';
+  position: absolute;
+  bottom: 4px;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #ffffff;
+  box-shadow: 0 0 6px #ffffff;
+}
+
+.wallpaper-btn-icon {
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.4));
+  pointer-events: none;
+  transition: transform 0.2s ease;
+}
+
+.wallpaper-btn:hover .wallpaper-btn-icon {
+  transform: scale(1.08);
 }
 
 /* ── Window System ───────────────────────────────────────────── */

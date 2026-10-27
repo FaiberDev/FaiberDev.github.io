@@ -108,6 +108,16 @@ function SettingsIcon() {
   );
 }
 
+function DisplayIcon({ size = 14 }) {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}>
+      <rect width="20" height="14" x="2" y="3" rx="2" />
+      <line x1="8" x2="16" y1="21" y2="21" />
+      <line x1="12" x2="12" y1="17" y2="21" />
+    </svg>
+  );
+}
+
 const WINDOW_DEFS = {
   projects: {
     title: 'Projects Catalog',
@@ -293,17 +303,30 @@ export default function Desktop() {
 
       {/* Hidden Wallpaper Menu Toggle */}
       <div className={`wallpaper-menu-container ${showWallpaperMenu ? 'visible' : ''}`}>
-        <div className="wallpaper-menu-title">Display Settings</div>
+        <div className="wallpaper-menu-title">
+          <DisplayIcon size={14} />
+          <span>Display Settings</span>
+        </div>
         <div className="wallpaper-list">
           {wallpapers.map((wp) => (
-            <div
+            <button
               key={wp.id}
+              type="button"
               className={`wallpaper-btn${activeWallpaper.id === wp.id ? ' active' : ''}`}
               title={wp.name}
+              aria-label={wp.name}
               onClick={() => setActiveWallpaper(wp)}
             >
-              {wp.icon}
-            </div>
+              {typeof wp.icon === 'string' && (wp.icon.startsWith('/') || wp.icon.includes('.')) ? (
+                <img
+                  src={wp.icon}
+                  alt={wp.name}
+                  className="wallpaper-btn-icon"
+                />
+              ) : (
+                wp.icon
+              )}
+            </button>
           ))}
         </div>
       </div>
