@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect, useCallback, useMemo } from 'react';
+import React, { useRef, useState, useEffect, useCallback } from 'react';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import ReactMarkdown from 'react-markdown';
@@ -22,25 +22,64 @@ export default function MarkdownModal({
   const isClosingRef = useRef(false);
   const [isMaximized, setIsMaximized] = useState(false);
 
-  // Synchronize isClosing during render when isOpen transitions to true
-  // Follows React recommendation: adjusting state during render when a prop changes
+  const getModalBounds = useCallback(() => {
+    const vpW = typeof window !== 'undefined' ? (window.innerWidth || 1280) : 1280;
+    const vpH = typeof window !== 'undefined' ? (window.innerHeight || 800) : 800;
+    const taskbarH = vpW <= 767 ? 52 : 56;
+    const w = vpW <= 767
+      ? Math.max(280, vpW - 16)
+      : Math.min(920, Math.max(320, Math.round(vpW * 0.88)));
+    const h = vpW <= 767
+      ? Math.max(260, vpH - taskbarH - 16)
+      : Math.min(660, Math.max(300, Math.round((vpH - taskbarH) * 0.86)));
+    const x = Math.max(8, Math.round((vpW - w) / 2));
+    const y = Math.max(8, Math.round((vpH - taskbarH - h) / 2));
+    return { w, h, x, y, vpW, vpH, taskbarH };
+  }, []);
+
+  const [bounds, setBounds] = useState(getModalBounds);
+  const hasDraggedRef = useRef(false);
+
+  const [pos, setPos] = useState(() => {
+    const initial = getModalBounds();
+    return { x: initial.x, y: initial.y };
+  });
+
+  // Synchronize state when isOpen transitions to true
   const [prevIsOpen, setPrevIsOpen] = useState(isOpen);
   if (prevIsOpen !== isOpen) {
     setPrevIsOpen(isOpen);
     if (isOpen) {
-      isClosingRef.current = false;
       setIsClosing(false);
+      const fresh = getModalBounds();
+      setBounds(fresh);
+      setPos({ x: fresh.x, y: fresh.y });
     }
   }
 
-  // Compute resting dimensions based on current window size
-  const modalWidth = useMemo(() => Math.min(940, window.innerWidth * 0.9), []);
-  const modalHeight = useMemo(() => Math.min(700, window.innerHeight * 0.84), []);
+  useEffect(() => {
+    if (!isOpen) return;
+    isClosingRef.current = false;
+    hasDraggedRef.current = false;
+    const handleResize = () => {
+      const next = getModalBounds();
+      setBounds(next);
+      setPos((prev) => {
+        if (!hasDraggedRef.current || next.vpW <= 767) {
+          return { x: next.x, y: next.y };
+        }
+        return {
+          x: Math.max(8, Math.min(Math.max(8, next.vpW - next.w - 8), prev.x)),
+          y: Math.max(8, Math.min(Math.max(8, next.vpH - next.taskbarH - 60), prev.y)),
+        };
+      });
+    };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, [isOpen, getModalBounds]);
 
-  const [pos, setPos] = useState(() => ({
-    x: Math.max(16, (window.innerWidth - modalWidth) / 2),
-    y: Math.max(20, (window.innerHeight - modalHeight) / 2 - 20),
-  }));
+  const modalWidth = bounds.w;
+  const modalHeight = bounds.h;
 
   // Calculate delta vector from trigger button to resting modal center
   const getOriginDeltas = useCallback(() => {
@@ -157,6 +196,7 @@ export default function MarkdownModal({
 
     const onMouseMove = (moveEvent) => {
       if (!dragState.current) return;
+      hasDraggedRef.current = true;
       const { startX, startY, originX, originY } = dragState.current;
       setPos({
         x: Math.max(0, Math.min(window.innerWidth - 100, originX + moveEvent.clientX - startX)),

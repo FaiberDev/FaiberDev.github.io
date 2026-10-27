@@ -168,23 +168,13 @@
 
 /* ── Bio Box ───────────────────────────────────────────── */
 .about-bio-card {
-  background: #ffffff;
-  border: 1px solid rgba(0, 0, 0, 0.08);
+  background: linear-gradient(135deg, #ffffff 0%, #fdf8f9 100%);
+  border: 1px solid rgba(217, 70, 111, 0.16);
   border-radius: 16px;
   padding: 20px 22px;
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.03);
   position: relative;
   overflow: hidden;
-}
-
-.about-bio-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 4px;
-  height: 100%;
-  background: linear-gradient(to bottom, #e2b740, #ff8da1);
 }
 
 .about-bio-text {
@@ -226,7 +216,7 @@
 
 .about-frameworks-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
   gap: 12px;
 }
 
@@ -359,4 +349,59 @@
   20% { opacity: 1; transform: translateY(0); }
   80% { opacity: 1; transform: translateY(0); }
   100% { opacity: 0; transform: translateY(-4px); }
+}
+
+/* ── Container & Mobile Responsive Adaptation ──────────── */
+@container os-window (max-width: 560px) {
+  .about-container {
+    padding: 20px 16px;
+    gap: 18px;
+  }
+
+  .about-hero {
+    gap: 16px;
+    align-items: flex-start;
+  }
+
+  .about-avatar-wrapper {
+    width: 78px;
+    height: 78px;
+  }
+
+  .about-avatar {
+    border-radius: 18px;
+  }
+
+  .about-avatar-ring {
+    border-radius: 21px;
+  }
+
+  .about-name {
+    font-size: 1.38rem;
+  }
+
+  .about-role {
+    font-size: 0.95rem;
+  }
+
+  .about-bio-card {
+    padding: 16px 16px;
+  }
+
+  .about-actions-bar {
+    gap: 8px;
+  }
+
+  .about-btn {
+    flex: 1 1 auto;
+    justify-content: center;
+    min-height: 44px;
+    padding: 10px 14px;
+  }
+}
+
+@media (max-width: 600px) {
+  .about-container {
+    padding: 20px 16px;
+  }
 }

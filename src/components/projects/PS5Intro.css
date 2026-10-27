@@ -3,7 +3,10 @@
   position: fixed;
   inset: 0;
   width: 100vw;
+  width: 100dvw;
   height: 100vh;
+  height: 100dvh;
+  padding: 24px;
   background-color: #06080d;
   display: flex;
   flex-direction: column;
@@ -13,8 +16,9 @@
   z-index: 99999;
   cursor: pointer;
   user-select: none;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+  font-family: var(--font-main, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif);
   color: #ffffff;
+  touch-action: manipulation;
 }
 
 /* Volumetric Golden Sunbeam from Top Left (as in official PS5 boot) */

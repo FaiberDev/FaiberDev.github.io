@@ -1,11 +1,13 @@
-/* Container must fill the parent (which will be a maximized OS window) */
+/* Container fills the OS window content area (floating default, maximized, or mobile sheet) */
 .ps5-container {
   width: 100%;
   height: 100%;
   position: relative;
-  background-color: #000;
+  background-color: #06080d;
   overflow: hidden;
   font-family: var(--font-main);
+  container: ps5-catalog / size;
+  outline: none;
 }
 
 /* ── Crossfading Backgrounds ─────────────────────────────────── */
@@ -21,30 +23,33 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center center;
   opacity: 0;
-  transition: opacity 0.8s ease-in-out;
+  transition: opacity 0.75s ease-in-out;
 }
 
 .ps5-bg-layer.active {
   opacity: 1;
 }
 
-/* Gradient overlay to ensure text readability */
+/* Dual-axis cinematic scrim for guaranteed WCAG text contrast */
 .ps5-gradient-overlay {
   position: absolute;
   inset: 0;
   z-index: 1;
-  background: linear-gradient(
-    to right,
-    rgba(0, 0, 0, 0.9) 0%,
-    rgba(0, 0, 0, 0.6) 40%,
-    rgba(0, 0, 0, 0) 100%
-  ),
-  linear-gradient(
-    to top,
-    rgba(0, 0, 0, 0.9) 0%,
-    rgba(0, 0, 0, 0) 40%
-  );
+  background:
+    linear-gradient(
+      to right,
+      rgba(6, 8, 13, 0.92) 0%,
+      rgba(6, 8, 13, 0.68) 44%,
+      rgba(6, 8, 13, 0.14) 100%
+    ),
+    linear-gradient(
+      to top,
+      rgba(6, 8, 13, 0.92) 0%,
+      rgba(6, 8, 13, 0.45) 38%,
+      rgba(6, 8, 13, 0.18) 100%
+    );
   pointer-events: none;
 }
 
@@ -56,60 +61,84 @@
   height: 100%;
   display: flex;
   flex-direction: column;
-  padding: 8% 5%;
+  justify-content: space-between;
+  gap: 20px;
+  padding: clamp(22px, 5cqh, 52px) clamp(24px, 4.8cqw, 60px);
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: thin;
 }
 
 /* ── Top Bar (Carousel) ──────────────────────────────────────── */
 .ps5-carousel {
   display: flex;
-  gap: 16px;
+  gap: 14px;
   align-items: center;
-  margin-bottom: 60px;
+  padding: 10px 8px;
+  margin: -10px -8px 0;
+  overflow-x: auto;
+  overflow-y: visible;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  scroll-snap-type: x proximity;
+  -webkit-overflow-scrolling: touch;
+  flex-shrink: 0;
+}
+
+.ps5-carousel::-webkit-scrollbar {
+  display: none;
 }
 
 .ps5-icon {
-  width: 100px;
-  height: 100px;
-  border-radius: 20px;
+  width: 76px;
+  height: 76px;
+  aspect-ratio: 1 / 1;
+  flex-shrink: 0;
+  border-radius: 16px;
   object-fit: cover;
   cursor: pointer;
-  opacity: 0.5;
-  transform: scale(0.85);
-  transition: transform 0.3s cubic-bezier(0.2, 1, 0.3, 1),
-              opacity 0.3s ease,
-              box-shadow 0.3s ease,
-              border 0.3s ease;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
-  border: 3px solid transparent;
+  opacity: 0.56;
+  transform: scale(0.9);
+  transition: transform 0.28s cubic-bezier(0.2, 1, 0.3, 1),
+              opacity 0.28s ease,
+              box-shadow 0.28s ease,
+              border-color 0.28s ease;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.55);
+  border: 2.5px solid rgba(255, 255, 255, 0.12);
   background: rgba(255, 255, 255, 0.08);
   backdrop-filter: blur(8px);
+  scroll-snap-align: center;
+  touch-action: manipulation;
 }
 
-.ps5-icon:hover {
-  opacity: 0.8;
-  transform: scale(0.9);
+@media (hover: hover) {
+  .ps5-icon:hover {
+    opacity: 0.85;
+    transform: scale(0.96);
+    border-color: rgba(255, 255, 255, 0.45);
+  }
 }
 
 .ps5-icon.active {
   opacity: 1;
-  transform: scale(1.15);
-  border: 3px solid rgba(255, 255, 255, 0.9);
-  box-shadow: 0 0 20px rgba(255, 255, 255, 0.4), 0 10px 20px rgba(0, 0, 0, 0.8);
+  transform: scale(1.1);
+  border-color: rgba(255, 255, 255, 0.95);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.78), 0 0 0 1px rgba(255, 255, 255, 0.35);
 }
 
-/* ── Info Section ────────────────────────────────────────────── */
+/* ── Info Section (Bottom-Left Anchored Showcase) ────────────── */
 .ps5-info-section {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  max-width: 680px;
+  max-width: 600px;
+  margin-top: auto;
 }
 
-/* Keyframes for entrance animation */
 @keyframes ps5SlideUpFade {
   from {
     opacity: 0;
-    transform: translateY(25px);
+    transform: translateY(18px);
   }
   to {
     opacity: 1;
@@ -118,51 +147,62 @@
 }
 
 .ps5-animate-enter {
-  animation: ps5SlideUpFade 0.5s cubic-bezier(0.2, 1, 0.3, 1) forwards;
+  animation: ps5SlideUpFade 0.42s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Consistent optical anchor so switching projects never shifts description/CTA */
+.ps5-brand-slot {
+  min-height: 88px;
+  display: flex;
+  align-items: flex-end;
+  margin-bottom: 16px;
+  width: 100%;
 }
 
 .ps5-logo {
-  max-width: 350px;
-  max-height: 120px;
+  max-width: min(300px, 75cqw);
+  max-height: 92px;
+  width: auto;
+  height: auto;
   object-fit: contain;
-  margin-bottom: 24px;
-  filter: drop-shadow(0 4px 6px rgba(0,0,0,0.6));
+  object-position: left bottom;
+  filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.72));
 }
 
 .ps5-text-logo-wrapper {
-  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
 }
 
 .ps5-text-logo {
   font-family: var(--font-main);
-  font-size: clamp(1.8rem, 3.2vw, 2.6rem);
-  font-weight: 800;
-  letter-spacing: -0.5px;
-  line-height: 1.15;
+  font-size: clamp(1.55rem, 1.15rem + 1.6cqw, 2.45rem);
+  font-weight: 900;
+  letter-spacing: -0.025em;
+  line-height: 1.12;
   color: #ffffff;
   margin: 0;
   text-transform: uppercase;
-  background: linear-gradient(180deg, #ffffff 40%, #e2d7e8 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.8));
+  text-wrap: balance;
+  text-shadow: 0 4px 16px rgba(0, 0, 0, 0.82);
 }
 
 .ps5-subtitle {
-  font-size: 1rem;
-  font-weight: 500;
-  letter-spacing: 2px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: #ff9ec6;
-  margin-top: 6px;
-  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
+  color: #ffb8d0;
+  margin-top: 8px;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.85);
 }
 
 .ps5-icon-fallback {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 10px;
+  padding: 8px;
   text-align: center;
   background: linear-gradient(135deg, rgba(255, 255, 255, 0.18), rgba(255, 255, 255, 0.06));
   border: 1px solid rgba(255, 255, 255, 0.35);
@@ -172,59 +212,71 @@
 
 .ps5-icon-fallback-text {
   font-family: var(--font-main);
-  font-size: 0.85rem;
+  font-size: 0.78rem;
   font-weight: 700;
   color: #ffffff;
   line-height: 1.2;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.03em;
   word-break: break-word;
 }
 
 .ps5-bg-fallback {
-  background: radial-gradient(circle at 60% 40%, #351c3d 0%, #170d1c 70%, #0a060d 100%);
-}
-
-.ps5-title {
-  font-size: 2.5rem;
-  color: #fff;
-  margin: 0 0 12px 0;
-  font-weight: 600;
-  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.9), 0 0 15px rgba(0, 0, 0, 0.6);
+  background: radial-gradient(circle at 65% 38%, #281b38 0%, #130d1d 68%, #07050b 100%);
 }
 
 .ps5-description {
-  font-size: 1.15rem;
+  font-size: clamp(0.96rem, 0.9rem + 0.3cqw, 1.12rem);
   line-height: 1.6;
-  color: #e0e0e0;
-  margin-bottom: 30px;
-  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.9), 0 0 12px rgba(0, 0, 0, 0.6);
+  color: #ebe7f0;
+  max-width: 54ch;
+  min-height: 3.2em;
+  margin: 0 0 24px 0;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.9);
 }
 
 /* ── Action Button ───────────────────────────────────────────── */
 .ps5-play-btn {
-  background-color: rgba(255, 255, 255, 0.15);
-  border: 2px solid rgba(255, 255, 255, 0.8);
-  color: #fff;
-  font-size: 1.2rem;
-  font-weight: 600;
-  padding: 14px 40px;
+  background: rgba(255, 255, 255, 0.16);
+  border: 1.5px solid rgba(255, 255, 255, 0.82);
+  color: #ffffff;
+  font-family: var(--font-main);
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  min-height: 46px;
+  padding: 11px 34px;
   border-radius: 9999px;
   cursor: pointer;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  backdrop-filter: blur(8px);
-  text-shadow: 0 2px 5px rgba(0,0,0,0.8);
-  transition: all 0.2s ease;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.65);
+  transition: background-color 0.2s cubic-bezier(0.2, 0.8, 0.2, 1),
+              color 0.2s cubic-bezier(0.2, 0.8, 0.2, 1),
+              transform 0.2s cubic-bezier(0.2, 0.8, 0.2, 1),
+              box-shadow 0.2s ease,
+              border-color 0.2s ease;
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.4);
+  touch-action: manipulation;
 }
 
-.ps5-play-btn:hover {
-  background-color: #fff;
-  color: #000;
-  box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
-  transform: scale(1.03);
+@media (hover: hover) {
+  .ps5-play-btn:hover {
+    background-color: #ffffff;
+    border-color: #ffffff;
+    color: #0b0d14;
+    text-shadow: none;
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.5);
+    transform: translateY(-2px);
+  }
+}
+
+.ps5-play-btn:focus-visible {
+  outline: 2px solid #ffb8d0;
+  outline-offset: 3px;
 }
 
 .ps5-play-btn:active {
@@ -235,84 +287,152 @@
 .ps5-loader {
   position: absolute;
   inset: 0;
-  background: #000;
+  background: #06080d;
   z-index: 100;
   display: flex;
   justify-content: center;
   align-items: center;
-  color: #fff;
-  font-size: 1.5rem;
-  transition: opacity 0.5s ease;
+  color: #ffffff;
+  font-size: 1.15rem;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  transition: opacity 0.45s ease;
 }
+
 .ps5-loader.hidden {
   opacity: 0;
   pointer-events: none;
 }
 
-/* ── PS5 Top Bar User Badge ──────────────────────────────────── */
-.ps5-dashboard-user-bar {
-  position: absolute;
-  top: 24px;
-  right: 32px;
-  z-index: 25;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  border-radius: 9999px;
-  padding: 6px 14px 6px 8px;
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+/* ── Container-Driven Responsiveness ─────────────────────────── */
+
+/* Maximized / Large Desktop Showcase */
+@container ps5-catalog (min-width: 1180px) and (min-height: 660px) {
+  .ps5-carousel {
+    gap: 18px;
+  }
+
+  .ps5-icon {
+    width: 92px;
+    height: 92px;
+    border-radius: 18px;
+  }
+
+  .ps5-brand-slot {
+    min-height: 110px;
+    margin-bottom: 20px;
+  }
+
+  .ps5-logo {
+    max-width: 350px;
+    max-height: 114px;
+  }
+
+  .ps5-play-btn {
+    font-size: 1.08rem;
+    padding: 13px 40px;
+  }
 }
 
-.ps5-user-avatar-small {
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 2px solid #e2b740;
-  box-shadow: 0 0 8px rgba(226, 183, 64, 0.4);
+/* Short Window Height (e.g., compact laptops or landscape tablets) */
+@container ps5-catalog (max-height: 510px) {
+  .ps5-content-wrapper {
+    padding: 16px 22px;
+    gap: 14px;
+  }
+
+  .ps5-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 13px;
+  }
+
+  .ps5-brand-slot {
+    min-height: 58px;
+    margin-bottom: 10px;
+  }
+
+  .ps5-logo {
+    max-height: 62px;
+    max-width: 220px;
+  }
+
+  .ps5-description {
+    min-height: 0;
+    margin-bottom: 14px;
+    font-size: 0.92rem;
+  }
+
+  .ps5-play-btn {
+    min-height: 40px;
+    padding: 8px 26px;
+    font-size: 0.94rem;
+  }
 }
 
-.ps5-user-info-small {
-  display: flex;
-  flex-direction: column;
-  text-align: left;
+/* Compact / Mobile Sheet Container */
+@container ps5-catalog (max-width: 600px) {
+  .ps5-gradient-overlay {
+    background:
+      linear-gradient(
+        to top,
+        rgba(6, 8, 13, 0.96) 0%,
+        rgba(6, 8, 13, 0.82) 48%,
+        rgba(6, 8, 13, 0.35) 100%
+      );
+  }
+
+  .ps5-content-wrapper {
+    padding: 18px 18px 22px;
+  }
+
+  .ps5-carousel {
+    gap: 11px;
+    scroll-snap-type: x mandatory;
+  }
+
+  .ps5-icon {
+    width: 64px;
+    height: 64px;
+    border-radius: 14px;
+  }
+
+  .ps5-brand-slot {
+    min-height: 68px;
+    margin-bottom: 12px;
+  }
+
+  .ps5-logo {
+    max-width: min(230px, 78cqw);
+    max-height: 74px;
+  }
+
+  .ps5-text-logo {
+    font-size: clamp(1.35rem, 5.5cqw, 1.75rem);
+  }
+
+  .ps5-subtitle {
+    font-size: 0.76rem;
+    letter-spacing: 0.08em;
+  }
+
+  .ps5-description {
+    font-size: 0.95rem;
+    line-height: 1.55;
+    min-height: 0;
+    margin-bottom: 18px;
+  }
+
+  .ps5-play-btn {
+    width: 100%;
+    padding: 12px 24px;
+  }
 }
 
-.ps5-user-name-small {
-  font-size: 12px;
-  font-weight: 700;
-  color: #ffffff;
-  line-height: 1.2;
-}
-
-.ps5-user-role-small {
-  font-size: 10px;
-  color: #e2b740;
-  font-weight: 500;
-  letter-spacing: 0.5px;
-  text-transform: uppercase;
-  line-height: 1.2;
-}
-
-.ps5-switch-profile-btn {
-  background: rgba(255, 255, 255, 0.12);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  color: #e2e8f0;
-  border-radius: 9999px;
-  font-size: 11px;
-  font-weight: 600;
-  padding: 4px 10px;
-  cursor: pointer;
-  margin-left: 4px;
-  transition: all 0.2s ease;
-}
-
-.ps5-switch-profile-btn:hover {
-  background: #ffffff;
-  color: #0f172a;
-  box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+/* Viewport fallback if container queries are unsupported */
+@media (max-width: 640px) {
+  .ps5-icon {
+    width: 64px;
+    height: 64px;
+  }
 }

@@ -121,21 +121,21 @@ function DisplayIcon({ size = 14 }) {
 const WINDOW_DEFS = {
   projects: {
     title: 'Projects Catalog',
-    size: { w: window.innerWidth * 0.55, h: window.innerHeight * 0.70 },
+    size: { w: 1020, h: 640 },
     className: 'projects-window',
     content: <PS5Projects />,
     startMaximized: false,
   },
   notes: {
     title: 'Notes',
-    size: { w: 800, h: 550 },
+    size: { w: 840, h: 560 },
     className: 'notes-window',
     content: <Notes />,
     startMaximized: false,
   },
   about: {
     title: 'About Me',
-    size: { w: 720, h: 570 },
+    size: { w: 740, h: 580 },
     className: 'about-window',
     allowMaximize: false,
     content: <About />,
@@ -148,6 +148,8 @@ export default function Desktop() {
   const zRef = useRef(1000);
   const [activeWallpaper, setActiveWallpaper] = useState(wallpapers[0]);
   const [showWallpaperMenu, setShowWallpaperMenu] = useState(false);
+  const wallpaperMenuRef = useRef(null);
+  const settingsBtnRef = useRef(null);
   const [pongModal, setPongModal] = useState({
     isOpen: false,
     originRect: null,
@@ -162,8 +164,24 @@ export default function Desktop() {
     }
   }, [activeWallpaper]);
 
+  useEffect(() => {
+    if (!showWallpaperMenu) return;
+    const handlePointerDown = (e) => {
+      if (
+        wallpaperMenuRef.current?.contains(e.target) ||
+        settingsBtnRef.current?.contains(e.target)
+      ) {
+        return;
+      }
+      setShowWallpaperMenu(false);
+    };
+    document.addEventListener('mousedown', handlePointerDown);
+    return () => document.removeEventListener('mousedown', handlePointerDown);
+  }, [showWallpaperMenu]);
+
   const openWindow = (id) => {
     zRef.current++;
+    setShowWallpaperMenu(false);
     dispatch({ type: 'OPEN', id, z: zRef.current });
   };
 
@@ -220,7 +238,7 @@ export default function Desktop() {
         <PS5Intro onLogin={() => setIsBooted(true)} />
       )}
 
-      <video ref={videoRef} className="desktop-bg" autoPlay loop muted />
+      <video ref={videoRef} className="desktop-bg" autoPlay loop muted playsInline />
 
       {/* Upper Right Current User Badge - ONLY on the wallpaper when booted */}
       {isBooted && (
@@ -251,9 +269,16 @@ export default function Desktop() {
         {ICONS.map(({ id, label }) => (
           <div
             key={id}
+            role="button"
+            tabIndex={0}
             className="desktop-icon"
             onClick={() => openWindow(id)}
-            onTouchEnd={() => openWindow(id)}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                openWindow(id);
+              }
+            }}
           >
             <div className="icon-img">
               {id === 'projects' ? (
@@ -302,7 +327,10 @@ export default function Desktop() {
       })}
 
       {/* Hidden Wallpaper Menu Toggle */}
-      <div className={`wallpaper-menu-container ${showWallpaperMenu ? 'visible' : ''}`}>
+      <div
+        ref={wallpaperMenuRef}
+        className={`wallpaper-menu-container ${showWallpaperMenu ? 'visible' : ''}`}
+      >
         <div className="wallpaper-menu-title">
           <DisplayIcon size={14} />
           <span>Display Settings</span>
@@ -358,7 +386,7 @@ export default function Desktop() {
                   }
                 }}
               >
-                <span>{def?.title ?? id}</span>
+                <span className="taskbar-tab-label">{def?.title ?? id}</span>
                 <span
                   className="taskbar-tab-close"
                   title="Close Window"
@@ -378,6 +406,7 @@ export default function Desktop() {
         <div className="system-tray">
           <span className="cat-mascot" title="Meow!">🐈‍⬛</span>
           <button 
+            ref={settingsBtnRef}
             className={`settings-btn ${showWallpaperMenu ? 'active' : ''}`}
             onClick={() => setShowWallpaperMenu(!showWallpaperMenu)}
             title="Display Settings"

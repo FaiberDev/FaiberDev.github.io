@@ -56,6 +56,9 @@
   display: flex;
   align-items: center;
   gap: 10px;
+  min-width: 0;
+  flex: 1;
+  margin-right: 12px;
 }
 
 .markdown-modal-badge {
@@ -68,6 +71,7 @@
   padding: 2px 7px;
   border-radius: 4px;
   border: 1px solid rgba(240, 150, 170, 0.4);
+  flex-shrink: 0;
 }
 
 .markdown-modal-title {
@@ -76,6 +80,9 @@
   font-weight: 600;
   color: #ffffff;
   letter-spacing: 0.3px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .markdown-modal-controls {
@@ -137,13 +144,12 @@
 }
 
 .markdown-prose h1 {
-  font-size: 2.1rem;
+  font-size: clamp(1.5rem, 1.2rem + 1.4vw, 2.1rem);
   border-bottom: 1px solid rgba(240, 150, 170, 0.25);
   padding-bottom: 12px;
   margin-top: 0.4em;
-  background: linear-gradient(135deg, #ffffff 40%, #ff9ec6 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  color: #ffffff;
+  text-wrap: balance;
 }
 
 .markdown-prose h2 {
@@ -205,11 +211,11 @@
 
 /* Blockquotes */
 .markdown-prose blockquote {
-  border-left: 3px solid rgba(240, 150, 170, 0.65);
+  border: 1px solid rgba(240, 150, 170, 0.25);
   background: rgba(240, 150, 170, 0.06);
-  padding: 12px 20px;
+  padding: 14px 20px;
   margin: 1.4em 0;
-  border-radius: 0 8px 8px 0;
+  border-radius: 10px;
   color: #e8ddec;
   font-style: italic;
 }
@@ -356,21 +362,37 @@
 /* ── Responsive Behavior ─────────────────────────────────────────────────── */
 @media (max-width: 768px) {
   .markdown-modal-window {
-    width: calc(100vw - 20px) !important;
-    height: calc(100vh - 76px) !important;
-    left: 10px !important;
-    top: 10px !important;
+    width: calc(100dvw - 16px) !important;
+    height: calc(100dvh - var(--taskbar-height, 52px) - 16px) !important;
+    left: 8px !important;
+    top: 8px !important;
+    border-radius: 14px;
+  }
+
+  .markdown-modal-header {
+    padding: 10px 14px;
   }
 
   .markdown-scroll-container {
-    padding: 20px 18px;
+    padding: 20px 16px;
   }
 
   .markdown-prose h1 {
-    font-size: 1.6rem;
+    font-size: 1.5rem;
   }
 
   .markdown-prose h2 {
-    font-size: 1.25rem;
+    font-size: 1.22rem;
+  }
+
+  .markdown-prose pre {
+    padding: 14px 14px;
+    font-size: 0.82rem;
+  }
+
+  .markdown-prose table {
+    display: block;
+    overflow-x: auto;
+    font-size: 0.85rem;
   }
 }
