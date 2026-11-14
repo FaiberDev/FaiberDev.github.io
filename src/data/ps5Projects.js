@@ -22,6 +22,7 @@ import bg6 from '../assets/project-background/expedition33.jpeg';
 import cover6 from '../assets/project-cover/expedition33.jpg';
 import logo6 from '../assets/project-logo/expedition33.png';
 
+import bgRhythm from '../assets/project-background/rhythm-architecture.jpg';
 import unrealCover from '../assets/project-cover/unreal-engine.png';
 
 export const ps5ProjectsData = [
@@ -32,6 +33,7 @@ export const ps5ProjectsData = [
     description: "A sample-accurate, framerate-independent rhythm system built in C++ utilizing Unreal Engine 5's Quartz subsystem and a custom JSON parser",
     coverUrl: unrealCover,
     logoUrl: null,
+    backgroundUrl: bgRhythm,
     backgroundGradient: 'radial-gradient(circle at 70% 35%, #182848 0%, #101c33 45%, #080c17 100%)',
     buttonText: 'More information',
   },

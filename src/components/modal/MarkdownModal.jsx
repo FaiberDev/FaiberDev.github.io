@@ -3,9 +3,18 @@ import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
+import remarkMath from 'remark-math';
 import rehypeHighlight from 'rehype-highlight';
+import rehypeKatex from 'rehype-katex';
+import 'katex/dist/katex.min.css';
 import pongArchitectureRaw from '../../data/pong-architecture.md?raw';
 import './MarkdownModal.css';
+
+// Pre-normalize display math equations into standard multi-line blocks for KaTeX
+const processedArchitectureMarkdown = pongArchitectureRaw.replace(
+  /\$\$\s*([^$]+?)\s*\$\$/g,
+  (_, eq) => `\n\n$$\n${eq.trim()}\n$$\n\n`
+);
 
 gsap.registerPlugin(useGSAP);
 
@@ -298,10 +307,10 @@ export default function MarkdownModal({
         <div className="markdown-scroll-container">
           <article className="markdown-prose">
             <ReactMarkdown
-              remarkPlugins={[remarkGfm]}
-              rehypePlugins={[rehypeHighlight]}
+              remarkPlugins={[remarkGfm, remarkMath]}
+              rehypePlugins={[rehypeHighlight, rehypeKatex]}
             >
-              {pongArchitectureRaw}
+              {processedArchitectureMarkdown}
             </ReactMarkdown>
           </article>
         </div>

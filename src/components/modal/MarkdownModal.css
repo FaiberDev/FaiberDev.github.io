@@ -359,6 +359,55 @@
   background: rgba(255, 255, 255, 0.06);
 }
 
+/* ── KaTeX Mathematical Equations ────────────────────────────────────────── */
+.markdown-prose .katex-display {
+  margin: 1.6em 0;
+  padding: 16px 20px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(240, 150, 170, 0.22);
+  border-radius: 10px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.5);
+  text-align: center;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(240, 150, 170, 0.35) rgba(0, 0, 0, 0.2);
+}
+
+.markdown-prose .katex-display::-webkit-scrollbar {
+  height: 6px;
+}
+
+.markdown-prose .katex-display::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 3px;
+}
+
+.markdown-prose .katex-display::-webkit-scrollbar-thumb {
+  background: rgba(240, 150, 170, 0.35);
+  border-radius: 3px;
+}
+
+.markdown-prose .katex-display > .katex {
+  color: #ffffff;
+  font-size: 1.14em;
+  white-space: normal;
+}
+
+.markdown-prose .katex {
+  color: #ffc2d8;
+  font-size: 1.02em;
+}
+
+.markdown-prose .katex-display .katex {
+  color: #ffffff;
+}
+
+.markdown-prose table .katex {
+  color: #ffc2d8;
+  font-size: 0.94em;
+}
+
 /* ── Responsive Behavior ─────────────────────────────────────────────────── */
 @media (max-width: 768px) {
   .markdown-modal-window {
@@ -394,5 +443,10 @@
     display: block;
     overflow-x: auto;
     font-size: 0.85rem;
+  }
+
+  .markdown-prose .katex-display {
+    padding: 12px 14px;
+    font-size: 0.9em;
   }
 }

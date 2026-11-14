@@ -180,9 +180,13 @@ void AAMusicPlayer::StartClockAndAudio()
 ### 2. Continuous Sub-Beat Game-Thread Tracking
 To animate projectiles smoothly at 144+ FPS without waiting for the next discrete beat callback, `AAMusicPlayer::Tick` continuously samples the exact audio runtime and translates it to fractional beats:
 
-$$\text{BPS} = \frac{\text{CurrentBPM}}{60.0}$$
+$$
+\text{BPS} = \frac{\text{CurrentBPM}}{60.0}
+$$
 
-$$\text{ExactCurrentBeat} = \text{RunningSeconds} \times \text{BPS}$$
+$$
+\text{ExactCurrentBeat} = \text{RunningSeconds} \times \text{BPS}
+$$
 
 ```cpp
 void AAMusicPlayer::Tick(float DeltaTime)
@@ -338,13 +342,19 @@ void AARythmPaddle::AttemptHit()
 ### 1. Mathematical Formulation for Projectile Trajectory
 Traditional projectile movement relies on numeric integration:
 
-$$\vec{P}_{t+\Delta t} = \vec{P}_t + \vec{V} \cdot \Delta t$$
+$$
+\vec{P}_{t+\Delta t} = \vec{P}_t + \vec{V} \cdot \Delta t
+$$
 
 Under variable delta times ($\Delta t$), rounding errors accumulate, causing note arrival times to drift relative to the audio track. PingBall replaces this with a **closed-form parametric interpolation**:
 
-$$\alpha(t) = \max\left(0.0, \; \frac{\text{CurrentBeat}(t) - \text{SpawnBeat}}{\text{TargetBeat} - \text{SpawnBeat}}\right)$$
+$$
+\alpha(t) = \max\left(0.0, \; \frac{\text{CurrentBeat}(t) - \text{SpawnBeat}}{\text{TargetBeat} - \text{SpawnBeat}}\right)
+$$
 
-$$\vec{P}(t) = \text{Lerp}(\vec{P}_{\text{start}}, \; \vec{P}_{\text{target}}, \; \alpha(t)) = (1 - \alpha(t))\vec{P}_{\text{start}} + \alpha(t)\vec{P}_{\text{target}}$$
+$$
+\vec{P}(t) = \text{Lerp}(\vec{P}_{\text{start}}, \; \vec{P}_{\text{target}}, \; \alpha(t)) = (1 - \alpha(t))\vec{P}_{\text{start}} + \alpha(t)\vec{P}_{\text{target}}
+$$
 
 When $\alpha(t) = 1.0$, the ball arrives at the strike zone with mathematical precision at the exact audio beat.
 
@@ -389,14 +399,22 @@ void ABall::Tick(float DeltaTime)
 ### 2. Look-Ahead Spawner Scheduling (`ABallGenerator`)
 Notes cannot spawn at the moment they must be struck. `ABallGenerator` listens to `URhythmStoreSubsystem::OnBeat` and implements a **4-beat lookahead window**:
 
-$$\text{TargetBeatNumber} = \text{CurrentAbsoluteBeat} + \text{LookAheadOffset} \quad (\text{LookAheadOffset} = 4)$$
+$$
+\text{TargetBeatNumber} = \text{CurrentAbsoluteBeat} + \text{LookAheadOffset} \quad (\text{LookAheadOffset} = 4)
+$$
 
 When `OnBeat` triggers:
 1. Spawner queries `BeatMap` for notes matching `TargetBeatNumber`.
 2. Queries the spawn thrower transform (`Throwers[Note.ChosenThrower]`).
 3. Instantiates `ABall` and passes:
-   $$\text{ExactSpawnBeat} = \text{Store}->\text{GetCurrentBeat}()$$
-   $$\text{ExactTargetBeat} = \text{ExactSpawnBeat} + \text{LookAheadOffset}$$
+
+$$
+\text{ExactSpawnBeat} = \text{Store}\to\text{GetCurrentBeat}()
+$$
+
+$$
+\text{ExactTargetBeat} = \text{ExactSpawnBeat} + \text{LookAheadOffset}
+$$
 
 ```cpp
 // Source/PingBall/Ball/BallGenerator.cpp
@@ -428,9 +446,13 @@ Upon receiving a valid strike:
 ### 1. Mathematical Formulation
 Total score is partitioned into **50% Raw Accuracy** and **50% Combo Multiplier**:
 
-$$\text{MaxScorePerNote} = \frac{1,000,000}{N_{\text{total}}}$$
+$$
+\text{MaxScorePerNote} = \frac{1,000,000}{N_{\text{total}}}
+$$
 
-$$\text{Score}_{\text{note}} = \left(\text{MaxScorePerNote} \times 0.5 \times W_{\text{acc}}\right) + \left(\text{MaxScorePerNote} \times 0.5 \times M_{\text{bonus}}\right)$$
+$$
+\text{Score}_{\text{note}} = \left(\text{MaxScorePerNote} \times 0.5 \times W_{\text{acc}}\right) + \left(\text{MaxScorePerNote} \times 0.5 \times M_{\text{bonus}}\right)
+$$
 
 ### 2. Weight Distribution by Hit Quality
 
@@ -445,7 +467,9 @@ $$\text{Score}_{\text{note}} = \left(\text{MaxScorePerNote} \times 0.5 \times W_
 
 ### 3. Cumulative Accuracy Percentage
 
-$$\text{Accuracy}_{\text{cumulative}} = \left(\frac{\text{ActualAccuracyPoints}}{N_{\text{evaluated}} \times 300}\right) \times 100\%$$
+$$
+\text{Accuracy}_{\text{cumulative}} = \left(\frac{\text{ActualAccuracyPoints}}{N_{\text{evaluated}} \times 300}\right) \times 100\%
+$$
 
 ```cpp
 // Source/PingBall/GameMode/BaseGameMode.cpp
@@ -550,7 +574,9 @@ Charts are authored in external Digital Audio Workstations (DAW) or MIDI editors
 ### 2. Conversion Formula: Seconds to Absolute Beats
 MIDI note timestamps in seconds ($t_{\text{sec}}$) are mapped to discrete integer beat units:
 
-$$\text{CalculatedBeat} = \text{RoundToInt}\left(\frac{t_{\text{sec}} \times \text{BPM}}{60.0}\right)$$
+$$
+\text{CalculatedBeat} = \text{RoundToInt}\left(\frac{t_{\text{sec}} \times \text{BPM}}{60.0}\right)
+$$
 
 ### 3. Chromatic Pitch Routing
 Pitches are assigned to spatial thrower lanes:
