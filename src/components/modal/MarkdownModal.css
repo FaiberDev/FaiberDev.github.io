@@ -408,6 +408,49 @@
   font-size: 0.94em;
 }
 
+/* ── Video Embed ───────────────────────────────────────────────────────── */
+.markdown-video-container {
+  margin: 1.8em 0;
+  width: 100%;
+}
+
+.markdown-video-wrapper {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #08060b;
+  border: 1px solid rgba(240, 150, 170, 0.3);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6), 0 0 24px rgba(240, 150, 170, 0.12);
+  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.markdown-video-wrapper:hover {
+  border-color: rgba(240, 150, 170, 0.5);
+  box-shadow: 0 20px 48px rgba(0, 0, 0, 0.7), 0 0 32px rgba(240, 150, 170, 0.2);
+}
+
+.markdown-video-iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+  display: block;
+}
+
+.markdown-video-caption {
+  display: block;
+  margin-top: 8px;
+  font-size: 0.88rem;
+  color: #ffb8d0;
+  text-align: center;
+  font-style: italic;
+  letter-spacing: 0.2px;
+}
+
 /* ── Responsive Behavior ─────────────────────────────────────────────────── */
 @media (max-width: 768px) {
   .markdown-modal-window {
@@ -448,5 +491,13 @@
   .markdown-prose .katex-display {
     padding: 12px 14px;
     font-size: 0.9em;
+  }
+
+  .markdown-video-container {
+    margin: 1.2em 0;
+  }
+
+  .markdown-video-wrapper {
+    border-radius: 8px;
   }
 }

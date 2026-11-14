@@ -16,6 +16,70 @@ const processedArchitectureMarkdown = pongArchitectureRaw.replace(
   (_, eq) => `\n\n$$\n${eq.trim()}\n$$\n\n`
 );
 
+// Helper to extract YouTube video ID from various YouTube URL formats
+function getYouTubeId(url) {
+  if (!url || typeof url !== 'string') return null;
+  const match = url.match(
+    /(?:youtu\.be\/|youtube\.com\/(?:watch\?(?:.*&)?v=|(?:embed|v)\/))([a-zA-Z0-9_-]{11})/
+  );
+  return match ? match[1] : null;
+}
+
+// Custom Markdown components for interactive embeds & external link safety
+const markdownComponents = {
+  p: ({ node: _node, children, ...props }) => {
+    const meaningful = React.Children.toArray(children).filter(
+      (c) => typeof c !== 'string' || c.trim() !== ''
+    );
+    if (meaningful.length === 1) {
+      const child = meaningful[0];
+      let videoId = null;
+      let caption = null;
+
+      if (React.isValidElement(child) && child.props?.href) {
+        videoId = getYouTubeId(child.props.href);
+        if (typeof child.props.children === 'string' && !child.props.children.startsWith('http')) {
+          caption = child.props.children;
+        }
+      } else if (typeof child === 'string') {
+        videoId = getYouTubeId(child.trim());
+      }
+
+      if (videoId) {
+        return (
+          <div className="markdown-video-container">
+            <div className="markdown-video-wrapper">
+              <iframe
+                className="markdown-video-iframe"
+                src={`https://www.youtube-nocookie.com/embed/${videoId}`}
+                title={caption || 'PingBall Rhythm Architecture Video Demo'}
+                loading="lazy"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowFullScreen
+              />
+            </div>
+            {caption && <span className="markdown-video-caption">{caption}</span>}
+          </div>
+        );
+      }
+    }
+    return <p {...props}>{children}</p>;
+  },
+  a: ({ node: _node, href, children, ...props }) => {
+    const isExternal = href && (href.startsWith('http://') || href.startsWith('https://'));
+    return (
+      <a
+        href={href}
+        target={isExternal ? '_blank' : undefined}
+        rel={isExternal ? 'noopener noreferrer' : undefined}
+        {...props}
+      >
+        {children}
+      </a>
+    );
+  },
+};
+
 gsap.registerPlugin(useGSAP);
 
 export default function MarkdownModal({
@@ -309,6 +373,7 @@ export default function MarkdownModal({
             <ReactMarkdown
               remarkPlugins={[remarkGfm, remarkMath]}
               rehypePlugins={[rehypeHighlight, rehypeKatex]}
+              components={markdownComponents}
             >
               {processedArchitectureMarkdown}
             </ReactMarkdown>

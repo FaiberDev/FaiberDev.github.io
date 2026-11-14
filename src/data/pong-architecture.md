@@ -1,6 +1,8 @@
 # Data-Driven Rhythm Architecture (UE5 PingBall)
 *Sample-Accurate, Framerate-Independent C++ Rhythm Gameplay System*
 
+https://www.youtube.com/watch?v=aGER2ir7cZM
+
 ---
 
 ## 1. Executive Summary & System Overview
